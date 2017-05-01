@@ -1,0 +1,79 @@
+/home/ildar/diplom/graphmatching/data/inst_lid_rid.csv
+IGRAPH UN-- 20794 240414 -- 
++ attr: name (v)
+/home/ildar/diplom/graphmatching/data/vk_lid_rid.csv
+IGRAPH UN-- 24800 463468 -- 
++ attr: name (v)
+[(341, 23801), (10592, 319), (14599, 16597), (4863, 8430), (14978, 11161), (3008, 1252), (14572, 19486), (6916, 14915), (17502, 10349), (3838, 12305), (459, 22020), (9932, 3401), (15778, 14788), (17042, 16917), (7228, 13695), (696, 19753), (6121, 18292), (16718, 10678), (10759, 7934), (1115, 9008), (19158, 23971), (3578, 21686), (4993, 16351), (12694, 8615), (10288, 10318), (11733, 430), (8810, 12360), (8072, 16518), (8779, 5424), (15708, 14927)]
+Standard algorithm is selected
+Read Graphs time: 0.00014448165893554688
+Iter num: 1
+seed size = 30
+Seed are expanded
+Correct = 30, Wrong = 370
+Correct = 30, Wrong = 770
+Correct = 30, Wrong = 1170
+Correct = 30, Wrong = 1570
+Correct = 30, Wrong = 1970
+Correct = 30, Wrong = 2370
+Correct = 30, Wrong = 2770
+Correct = 30, Wrong = 3170
+Correct = 30, Wrong = 3570
+Correct = 30, Wrong = 3970
+Correct = 30, Wrong = 4370
+Correct = 30, Wrong = 4770
+In progress... (6019516)
+[5000] select the unmatched pair [5153,14325]
+score map size = 21229904
+Correct = 30, Wrong = 5170
+Correct = 30, Wrong = 5570
+Correct = 30, Wrong = 5970
+Correct = 30, Wrong = 6370
+Correct = 30, Wrong = 6770
+Correct = 31, Wrong = 7169
+Correct = 31, Wrong = 7569
+Correct = 31, Wrong = 7969
+Correct = 31, Wrong = 8369
+Correct = 31, Wrong = 8769
+Correct = 31, Wrong = 9169
+Correct = 31, Wrong = 9569
+Finish with inactive_pairs
+Extended seed size:  321092
+Iter num: 2
+seed size = 321092
+Seed are expanded
+Correct = 31, Wrong = 9969
+In progress... (613596)
+[10000] select the unmatched pair [5361,5922]
+score map size = 24084469
+Correct = 31, Wrong = 10369
+Correct = 31, Wrong = 10769
+Correct = 31, Wrong = 11169
+Correct = 31, Wrong = 11569
+Correct = 31, Wrong = 11969
+Correct = 31, Wrong = 12369
+Correct = 31, Wrong = 12769
+Correct = 31, Wrong = 13169
+Correct = 31, Wrong = 13569
+Correct = 31, Wrong = 13969
+Correct = 31, Wrong = 14369
+Finish with inactive_pairs
+Extended seed size:  2573
+Iter num: 3
+seed size = 2573
+Seed are expanded
+Finish with inactive_pairs
+Extended seed size:  6
+Iter num: 4
+seed size = 6
+Seed are expanded
+Finish with inactive_pairs
+Extended seed size:  0
+Execution time: 316.1193199157715
+------RESULT-------
+	for lN = 20794, rN = 24800, |seed_0| = 30
+	MATCHED =  14778
+		CORRECT = 31; WRONG = 14747
+	Recall = 0.001491
+	Precision = 0.002098
+	F1-score = 0.001743
