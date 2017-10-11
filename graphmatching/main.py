@@ -6,7 +6,6 @@ import sys, time, re
 from random import randint
 import cyrtranslit
 
-# f_prefix = '/home/ildar/diplom/graphmatching/data/'
 f_prefix = 'data/'
 
 
@@ -81,17 +80,8 @@ def proceed(alg_GM, a_c):
     return gm
 
 def main():
-    alg_num = sys.argv[1]
-    if alg_num not in ('alg1', 'alg2', 'alg3'):
-        print("alg1 | alg2")
-        sys.exit(1)
-    a_c = int(sys.argv[2])
-    if alg_num == 'alg1':
-        from alg1 import ExpandWhenStuck
-    elif alg_num == 'alg2':
-        from alg2 import ExpandWhenStuck
-    elif alg_num == 'alg3':
-        from alg3 import ExpandWhenStuck
+    from expand_UID import ExpandWhenStuck
+    a_c = int(sys.argv[1])
 
     gm = proceed(ExpandWhenStuck, a_c)
 
@@ -104,7 +94,7 @@ def main2():
             v['fname'] = v['name']
 
     a_c = int(sys.argv[1])
-    from alg2 import ExpandWhenStuck
+    from expand_when_stuck import ExpandWhenStuck
     lg = read_edges(f_prefix + 'rg_erdos_renyi_100.csv')
     rg = read_edges(f_prefix + 'rg_erdos_renyi_100.csv')
     enrich(lg)
