@@ -270,13 +270,12 @@ def find_sim_and_predict(data):
     name_sim_threshold = data['name_sim_threshold']
 
     res_list = []
-    lev = Levenshtein
     print('Start', thread_num)
     total_count = 1
     true_count = 0
     for row_l in tqdm(df_vals_l):
         for row_r in df_vals_r:
-            ratio = lev.ratio(row_l[1], row_r[1])
+            ratio = fuzz.token_set_ratio(row_l[1], row_r[1])
             if ratio > name_sim_threshold:
                 x = np.array(feature(G1, row_l[0], G2, row_r[0]), ).reshape((1, -1))
                 total_count += 1
