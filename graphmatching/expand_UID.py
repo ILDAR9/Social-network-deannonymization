@@ -46,7 +46,7 @@ class ExpandWhenStuck:
         self.rNodeM.add(rnode)
 
     def __name_similar(self, li, ri):
-        return fuzz.token_sort_ratio(self.lg.vs[li]['fname'], self.rg.vs[ri]['fname'])
+        return fuzz.token_set_ratio(self.lg.vs[li]['fname'], self.rg.vs[ri]['fname'])
 
     def __spread_mark(self, lnode, rnode):
         # add one mark to all neighboring pairs of [i,j]
