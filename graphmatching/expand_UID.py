@@ -28,6 +28,8 @@ class ExpandWhenStuck:
         self.score_map = dict()
         self.bad_name = set()
         self.name_sim_threshold = int(name_sim_threshold * 100)
+        print('name_sim_threshold', self.name_sim_threshold)
+
 
     def to_str(self, ln ,rn): return '%d|%d' % (ln, rn)
 
@@ -157,6 +159,8 @@ class ExpandWhenStuck:
         iter_num = 0
         show_counter = 0
         show_bound = 150
+        used_used = set()
+        round = 1
         # while |A| > 0 do
         while (len(self.seeds) > 0):
             # while |A| > 0 do
@@ -199,17 +203,27 @@ class ExpandWhenStuck:
                 # A <- all neighbors of M [i,j] not in Z, i,j not in V_1,V_2(M)
                 self.__extend_seeds_by_matches()
 
-            # for s in self.used:
-            #     l_neighbor, r_neighbor = self.untokenize(s)
-            #     if not self.__in_matched(l_neighbor, r_neighbor) and (s not in self.score_map) and\
-            #                     self.__name_similar(l_neighbor, r_neighbor) >= 0.92:
-            #         self.seeds.append((l_neighbor, r_neighbor))
-            #         self.score_map[s] = 1
+            for s in self.used:
+                l_neighbor, r_neighbor = self.untokenize(s)
+                if not self.__in_matched(l_neighbor, r_neighbor) and s not in used_used and \
+                                self.__name_similar(l_neighbor, r_neighbor) >= 99:
+                    self.seeds.append((l_neighbor, r_neighbor))
+                    used_used.add(s)
+                    print('Updated round %d, seed count = %d. used_used = %d' % (round, len(self.seeds),len(used_used)))
+                    round += 1
         self.time_elapsed = time.time() - self.s_time
 
+    def assure_folder_exists(self, path):
+        folder = os.path.dirname(path)
+        print(os.path.abspath(folder))
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+
     def save_result(self):
-        fname = 'matches_s_%d_th_%s_t_%s.pickle' % (self.seed_0_count, self.name_sim_threshold, time.time())
-        pickle.dump(self.matches, open(os.path.join('matches', fname), 'wb'))
+        fname = '%.3d/matches_s_%.2d_th_%.3d_t_%s.pickle' % (self.name_sim_threshold, self.seed_0_count, self.name_sim_threshold, time.strftime("%m-%d_%H:%M"))
+        fname = os.path.join('matches', fname)
+        self.assure_folder_exists(fname)
+        pickle.dump(self.matches, open(fname, 'wb'))
 
     def check_result(self):
         correct, wrong = self.__inter_result()

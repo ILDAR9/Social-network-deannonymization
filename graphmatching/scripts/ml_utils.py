@@ -3,7 +3,6 @@ import os
 import pandas as pd
 import cyrtranslit
 from tqdm import tqdm_notebook as tqdm
-# import Levenshtein
 from fuzzywuzzy import fuzz
 import networkx as nx
 import random
@@ -15,6 +14,7 @@ from multiprocessing import Pool as ThreadPool
 
 folder_data = '../data/'
 folder_gen = os.path.join(folder_data, 'generated')
+foler_matches = '../matches'
 
 def clean_lineinst(line):
     pat = re.compile("(\d+),(.*),(.*)")
@@ -26,6 +26,8 @@ def clean_lineinst(line):
     fname = cyrtranslit.to_latin(fname, 'ru').replace("'", '')
     return (uid, uname, fname)
 
+def read_from_matches(fname):
+    pass #ToDo finish
 
 def clean_linevk(line):
     pat = re.compile("(\d+),(.*),(.*),(.*)")
@@ -42,31 +44,38 @@ def clean_linevk(line):
     return (uid, uname, fname)
 
 
-def read_clean_csv(fname, num_col):
+def read_clean_csv(fname, from_raw = True):
+
+    save_to = fname + '.pickle'
+    if not from_raw:
+        df = pickle.load(open(os.path.join(folder_data, save_to), "rb"))
+        return df
+    if 'vk' in fname:
+        num_col = 4
+        columns = ['uid_vk', 'uname', 'name_vk']
+    elif 'inst' in fname:
+        num_col = 3
+        columns = ['uid_inst', 'uname', 'name_inst']
+
     df = pd.DataFrame()
 
     clean_line = clean_lineinst if num_col == 3 else clean_linevk
     with open(os.path.join(folder_data, fname), 'r') as f:
         for line in tqdm(f.readlines()):
             df = pd.concat([df, pd.DataFrame([clean_line(line)])], ignore_index=True)
+    df.columns = columns
+    uid_col = columns[0]
+    df[uid_col] = df[uid_col].astype(int)
+    pickle.dump(df, open(os.path.join(folder_data, save_to), "wb"))
     return df
 
-def read_combine_df(from_raw = True):
-    save_to = 'aggregated.pickle'
-    if not from_raw:
-        df = pickle.load(open(os.path.join(folder_data, save_to), "rb"))
-        return df
+def read_combine_df(from_raw = True, merge_how = 'inner'):
 
-    vk = read_clean_csv(fname='vk_personal.csv', num_col=4)
-    vk.columns = ['uid_vk', 'uname', 'name_vk']
-    vk.head()
+    vk = read_clean_csv(fname='vk_personal.csv', from_raw = from_raw)
+    inst = read_clean_csv(fname='inst_personal.csv', from_raw = from_raw)
 
-    inst = read_clean_csv(fname='inst_personal.csv', num_col=3)
-    inst.columns = ['uid_inst', 'uname', 'name_inst']
-    inst.head()
-
-    df = pd.merge(inst, vk, on='uname')
-    pickle.dump(df, open(os.path.join(folder_data, save_to), "wb"))
+    df = pd.merge(inst, vk, on='uname', how = merge_how)
+    print(df.head())
     return df
 
 def __read_uid_set(fname):
@@ -250,15 +259,16 @@ def filter_same(results):
     pickle.dump(filtered_res, open(os.path.join(folder_gen, 'test2_predicted_filtered.pickle'), "wb"))
     return filtered_res
 
-def precision(lid_rid):
+def precision_recall(lid_rid):
     true_mapping = pd.read_csv(os.path.join(folder_gen, 'true_mapping.csv'))
     true_mapping = set((x[0], x[1]) for x in true_mapping.values)
     count = 0
     for res in lid_rid:
         if res in true_mapping:
             count += 1
-
-    print(count / len(lid_rid))
+    precision = count / len(lid_rid)
+    recall = count / len(true_mapping)
+    return (precision, recall)
 
 def find_sim_and_predict(data):
     df_vals_l = data['vals_l']

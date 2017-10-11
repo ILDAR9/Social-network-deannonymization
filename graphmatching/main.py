@@ -62,18 +62,18 @@ def gen_seeds(seed_c, lg, rg):
             pass
     return res
 
-def proceed(alg_GM, a_c):
+def proceed(alg_GM, a_c, name_sim_threshold):
     inst_g = read_edges(f_prefix + 'inst_lid_rid.csv')
     enrich_insta_graph(inst_g)
 
     vk_g = read_edges(f_prefix + 'vk_lid_rid.csv')
     enrich_vk_graph(vk_g)
 
-    seeds_0 = gen_seeds(a_c, inst_g, vk_g)
+    seeds_0 = gen_seeds(a_c, vk_g, inst_g)
     print(seeds_0)
     s_time = time.time()
 
-    gm = alg_GM(inst_g, vk_g, seeds_0)
+    gm = alg_GM(vk_g, inst_g, seeds_0, name_sim_threshold = name_sim_threshold)
     print("Read Graphs time:", time.time() - s_time)
     gm.execute()
     print("Execution time:", gm.time_elapsed)
@@ -82,8 +82,9 @@ def proceed(alg_GM, a_c):
 def main():
     from expand_UID import ExpandWhenStuck
     a_c = int(sys.argv[1])
+    name_thres = float(sys.argv[2])
 
-    gm = proceed(ExpandWhenStuck, a_c)
+    gm = proceed(ExpandWhenStuck, a_c, name_sim_threshold = name_thres)
 
     gm.check_result()
     gm.save_result()
