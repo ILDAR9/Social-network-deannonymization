@@ -1,0 +1,506 @@
+data/inst_lid_rid.csv
+IGRAPH UN-- 20794 240414 -- 
++ attr: name (v)
+data/vk_lid_rid.csv
+IGRAPH UN-- 24800 463468 -- 
++ attr: name (v)
+{(5964, 15644), (7841, 18660), (20168, 15252)}
+With name extension algorithm is selected
+Read Graphs time: 8.177757263183594e-05
+Iter num: 1	seed size = 3
+Seed are expanded
+Finish with inactive_pairs
+Extended seed size:  33
+Iter num: 2	seed size = 33
+Seed are expanded
+In progress... (678)
+[150] select the unmatched pair [2684,1968]
+score map size = 4372
+In progress... (974)
+[300] select the unmatched pair [2548,303]
+score map size = 5500
+In progress... (1076)
+[450] select the unmatched pair [88,1510]
+score map size = 5965
+In progress... (1122)
+[600] select the unmatched pair [1260,1968]
+score map size = 6285
+In progress... (1111)
+[750] select the unmatched pair [2323,14563]
+score map size = 8129
+In progress... (1202)
+[900] select the unmatched pair [2456,2930]
+score map size = 8937
+In progress... (1170)
+[1050] select the unmatched pair [545,1879]
+score map size = 9348
+In progress... (1321)
+[1200] select the unmatched pair [788,1025]
+score map size = 10411
+Correct = 45, Wrong = 55
+Correct = 45, Wrong = 55
+Correct = 45, Wrong = 55
+Correct = 45, Wrong = 55
+Correct = 45, Wrong = 55
+In progress... (1615)
+[1350] select the unmatched pair [4451,1419]
+score map size = 11922
+In progress... (1727)
+[1500] select the unmatched pair [4424,1482]
+score map size = 12844
+In progress... (1923)
+[1650] select the unmatched pair [2820,6257]
+score map size = 14278
+In progress... (1920)
+[1800] select the unmatched pair [3457,1735]
+score map size = 14956
+Correct = 98, Wrong = 102
+Correct = 98, Wrong = 102
+Correct = 98, Wrong = 102
+In progress... (1999)
+[1950] select the unmatched pair [1765,3828]
+score map size = 15628
+In progress... (2072)
+[2100] select the unmatched pair [1321,1852]
+score map size = 16350
+In progress... (2090)
+[2250] select the unmatched pair [9078,139]
+score map size = 17021
+In progress... (2159)
+[2400] select the unmatched pair [2470,696]
+score map size = 17764
+In progress... (2089)
+[2550] select the unmatched pair [5202,492]
+score map size = 18792
+Correct = 151, Wrong = 149
+Correct = 151, Wrong = 149
+Correct = 151, Wrong = 149
+Correct = 151, Wrong = 149
+Correct = 151, Wrong = 149
+In progress... (2133)
+[2700] select the unmatched pair [10619,4666]
+score map size = 19698
+In progress... (2200)
+[2850] select the unmatched pair [2455,24599]
+score map size = 20495
+Correct = 230, Wrong = 170
+In progress... (2251)
+[3000] select the unmatched pair [683,698]
+score map size = 21155
+In progress... (2213)
+[3150] select the unmatched pair [7026,2425]
+score map size = 21925
+In progress... (2238)
+[3300] select the unmatched pair [52,16411]
+score map size = 22622
+Correct = 306, Wrong = 194
+Correct = 306, Wrong = 194
+Correct = 306, Wrong = 194
+Correct = 306, Wrong = 194
+Correct = 306, Wrong = 194
+In progress... (2180)
+[3450] select the unmatched pair [4447,6533]
+score map size = 22992
+In progress... (2122)
+[3600] select the unmatched pair [66,279]
+score map size = 23258
+Correct = 397, Wrong = 203
+Correct = 397, Wrong = 203
+Correct = 397, Wrong = 203
+Correct = 397, Wrong = 203
+In progress... (2119)
+[3750] select the unmatched pair [2845,24053]
+score map size = 23793
+In progress... (2060)
+[3900] select the unmatched pair [4189,5885]
+score map size = 24231
+Correct = 476, Wrong = 224
+Correct = 476, Wrong = 224
+Correct = 476, Wrong = 224
+Correct = 476, Wrong = 224
+Correct = 476, Wrong = 224
+Correct = 476, Wrong = 224
+In progress... (2040)
+[4050] select the unmatched pair [12615,6512]
+score map size = 24648
+In progress... (1955)
+[4200] select the unmatched pair [6208,4132]
+score map size = 24934
+Correct = 549, Wrong = 251
+Correct = 549, Wrong = 251
+In progress... (1857)
+[4350] select the unmatched pair [5583,3274]
+score map size = 25302
+In progress... (1724)
+[4500] select the unmatched pair [6240,6279]
+score map size = 25568
+Correct = 610, Wrong = 290
+Correct = 610, Wrong = 290
+Correct = 610, Wrong = 290
+In progress... (1617)
+[4650] select the unmatched pair [105,571]
+score map size = 25872
+In progress... (1516)
+[4800] select the unmatched pair [8028,1466]
+score map size = 26108
+In progress... (1339)
+[4950] select the unmatched pair [98,3740]
+score map size = 26447
+In progress... (1110)
+[5100] select the unmatched pair [14186,5300]
+score map size = 26688
+Correct = 644, Wrong = 356
+Correct = 644, Wrong = 356
+Correct = 644, Wrong = 356
+Correct = 644, Wrong = 356
+Correct = 644, Wrong = 356
+Correct = 644, Wrong = 356
+Correct = 644, Wrong = 356
+Correct = 644, Wrong = 356
+Correct = 644, Wrong = 356
+Correct = 644, Wrong = 356
+Correct = 644, Wrong = 356
+In progress... (883)
+[5250] select the unmatched pair [4400,1922]
+score map size = 26940
+In progress... (671)
+[5400] select the unmatched pair [65,530]
+score map size = 27199
+In progress... (471)
+[5550] select the unmatched pair [2306,1615]
+score map size = 27483
+In progress... (275)
+[5700] select the unmatched pair [549,682]
+score map size = 27989
+Correct = 663, Wrong = 437
+Correct = 663, Wrong = 437
+In progress... (120)
+[5850] select the unmatched pair [915,3875]
+score map size = 28227
+Finish with inactive_pairs
+Extended seed size:  9739
+Iter num: 3	seed size = 9739
+Seed are expanded
+In progress... (17017)
+[6000] select the unmatched pair [149,629]
+score map size = 85981
+In progress... (16867)
+[6150] select the unmatched pair [1807,379]
+score map size = 85981
+In progress... (16734)
+[6300] select the unmatched pair [6927,491]
+score map size = 86008
+In progress... (16594)
+[6450] select the unmatched pair [537,23472]
+score map size = 86011
+In progress... (16448)
+[6600] select the unmatched pair [8206,201]
+score map size = 86021
+In progress... (16374)
+[6750] select the unmatched pair [1659,629]
+score map size = 86120
+In progress... (16261)
+[6900] select the unmatched pair [5789,9678]
+score map size = 86403
+In progress... (16143)
+[7050] select the unmatched pair [8771,4947]
+score map size = 86463
+In progress... (16038)
+[7200] select the unmatched pair [686,24223]
+score map size = 86523
+In progress... (15944)
+[7350] select the unmatched pair [3482,521]
+score map size = 86591
+In progress... (15800)
+[7500] select the unmatched pair [2309,1455]
+score map size = 86646
+In progress... (15642)
+[7650] select the unmatched pair [1921,5178]
+score map size = 86661
+In progress... (15552)
+[7800] select the unmatched pair [2922,3856]
+score map size = 86730
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+Correct = 683, Wrong = 517
+In progress... (15450)
+[7950] select the unmatched pair [6301,655]
+score map size = 86792
+In progress... (15387)
+[8100] select the unmatched pair [4136,22249]
+score map size = 86907
+In progress... (15270)
+[8250] select the unmatched pair [1191,3854]
+score map size = 87066
+In progress... (15124)
+[8400] select the unmatched pair [5829,4936]
+score map size = 87082
+In progress... (15014)
+[8550] select the unmatched pair [9592,22249]
+score map size = 87149
+In progress... (14875)
+[8700] select the unmatched pair [3297,684]
+score map size = 87176
+In progress... (14676)
+[8850] select the unmatched pair [6234,553]
+score map size = 87200
+Correct = 722, Wrong = 578
+Correct = 722, Wrong = 578
+Correct = 722, Wrong = 578
+Correct = 722, Wrong = 578
+In progress... (14603)
+[9000] select the unmatched pair [6245,5695]
+score map size = 87303
+In progress... (14427)
+[9150] select the unmatched pair [3002,233]
+score map size = 87331
+In progress... (14257)
+[9300] select the unmatched pair [3225,265]
+score map size = 87369
+In progress... (14118)
+[9450] select the unmatched pair [4098,2815]
+score map size = 87470
+In progress... (13918)
+[9600] select the unmatched pair [5005,1625]
+score map size = 87504
+In progress... (13723)
+[9750] select the unmatched pair [6347,3071]
+score map size = 87553
+Correct = 759, Wrong = 641
+Correct = 759, Wrong = 641
+Correct = 759, Wrong = 641
+Correct = 759, Wrong = 641
+Correct = 759, Wrong = 641
+Correct = 759, Wrong = 641
+In progress... (13502)
+[9900] select the unmatched pair [3536,1236]
+score map size = 87569
+In progress... (13285)
+[10050] select the unmatched pair [8359,910]
+score map size = 87591
+In progress... (13107)
+[10200] select the unmatched pair [9287,5554]
+score map size = 87633
+In progress... (12958)
+[10350] select the unmatched pair [4102,5532]
+score map size = 87669
+Correct = 825, Wrong = 675
+Correct = 825, Wrong = 675
+Correct = 825, Wrong = 675
+Correct = 825, Wrong = 675
+Correct = 825, Wrong = 675
+In progress... (12804)
+[10500] select the unmatched pair [2344,4107]
+score map size = 87714
+In progress... (12657)
+[10650] select the unmatched pair [4969,1303]
+score map size = 87806
+Correct = 878, Wrong = 722
+Correct = 878, Wrong = 722
+Correct = 878, Wrong = 722
+Correct = 878, Wrong = 722
+In progress... (12467)
+[10800] select the unmatched pair [7876,3794]
+score map size = 87850
+In progress... (12299)
+[10950] select the unmatched pair [6527,3921]
+score map size = 87925
+In progress... (12078)
+[11100] select the unmatched pair [7444,20336]
+score map size = 87981
+In progress... (11844)
+[11250] select the unmatched pair [16270,2427]
+score map size = 88009
+In progress... (11609)
+[11400] select the unmatched pair [662,24251]
+score map size = 88061
+In progress... (11348)
+[11550] select the unmatched pair [12474,1251]
+score map size = 88124
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+Correct = 894, Wrong = 806
+In progress... (11111)
+[11700] select the unmatched pair [11195,1886]
+score map size = 88164
+In progress... (10888)
+[11850] select the unmatched pair [3187,497]
+score map size = 88196
+In progress... (10637)
+[12000] select the unmatched pair [8231,730]
+score map size = 88235
+In progress... (10360)
+[12150] select the unmatched pair [4474,690]
+score map size = 88290
+In progress... (10136)
+[12300] select the unmatched pair [4642,1899]
+score map size = 88323
+In progress... (9887)
+[12450] select the unmatched pair [4410,645]
+score map size = 88480
+Correct = 920, Wrong = 880
+In progress... (9723)
+[12600] select the unmatched pair [1568,10707]
+score map size = 88520
+Correct = 985, Wrong = 915
+Correct = 985, Wrong = 915
+Correct = 985, Wrong = 915
+Correct = 985, Wrong = 915
+In progress... (9548)
+[12750] select the unmatched pair [14222,716]
+score map size = 88565
+Correct = 1047, Wrong = 953
+In progress... (9363)
+[12900] select the unmatched pair [3459,24235]
+score map size = 88597
+In progress... (9150)
+[13050] select the unmatched pair [8008,4550]
+score map size = 88649
+Correct = 1112, Wrong = 988
+Correct = 1112, Wrong = 988
+Correct = 1112, Wrong = 988
+In progress... (8910)
+[13200] select the unmatched pair [4295,2381]
+score map size = 88691
+Correct = 1175, Wrong = 1025
+Correct = 1175, Wrong = 1025
+In progress... (8698)
+[13350] select the unmatched pair [5204,2874]
+score map size = 88740
+In progress... (8460)
+[13500] select the unmatched pair [4075,3549]
+score map size = 88793
+Correct = 1228, Wrong = 1072
+Correct = 1228, Wrong = 1072
+Correct = 1228, Wrong = 1072
+In progress... (8170)
+[13650] select the unmatched pair [13655,4066]
+score map size = 88834
+In progress... (7902)
+[13800] select the unmatched pair [15365,8127]
+score map size = 88876
+Correct = 1258, Wrong = 1142
+Correct = 1258, Wrong = 1142
+Correct = 1258, Wrong = 1142
+Correct = 1258, Wrong = 1142
+In progress... (7588)
+[13950] select the unmatched pair [975,8703]
+score map size = 88999
+In progress... (7288)
+[14100] select the unmatched pair [2787,1723]
+score map size = 89058
+In progress... (6910)
+[14250] select the unmatched pair [4919,24059]
+score map size = 89080
+Correct = 1279, Wrong = 1221
+In progress... (6537)
+[14400] select the unmatched pair [319,2179]
+score map size = 89114
+In progress... (6200)
+[14550] select the unmatched pair [1812,8378]
+score map size = 89156
+In progress... (5820)
+[14700] select the unmatched pair [1018,2081]
+score map size = 89177
+Correct = 1290, Wrong = 1310
+Correct = 1290, Wrong = 1310
+Correct = 1290, Wrong = 1310
+Correct = 1290, Wrong = 1310
+Correct = 1290, Wrong = 1310
+Correct = 1290, Wrong = 1310
+Correct = 1290, Wrong = 1310
+Correct = 1290, Wrong = 1310
+Correct = 1290, Wrong = 1310
+Correct = 1290, Wrong = 1310
+Correct = 1290, Wrong = 1310
+In progress... (5441)
+[14850] select the unmatched pair [16094,3021]
+score map size = 89207
+In progress... (5046)
+[15000] select the unmatched pair [14440,3984]
+score map size = 89246
+In progress... (4672)
+[15150] select the unmatched pair [6017,2325]
+score map size = 89300
+In progress... (4293)
+[15300] select the unmatched pair [5429,1079]
+score map size = 89330
+In progress... (3924)
+[15450] select the unmatched pair [12,13164]
+score map size = 89356
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+Correct = 1297, Wrong = 1403
+In progress... (3519)
+[15600] select the unmatched pair [2993,1989]
+score map size = 89406
+In progress... (3111)
+[15750] select the unmatched pair [18407,908]
+score map size = 89466
+In progress... (2686)
+[15900] select the unmatched pair [6118,1795]
+score map size = 89485
+In progress... (2246)
+[16050] select the unmatched pair [18779,24211]
+score map size = 89534
+Correct = 1302, Wrong = 1498
+Correct = 1302, Wrong = 1498
+Correct = 1302, Wrong = 1498
+Correct = 1302, Wrong = 1498
+Correct = 1302, Wrong = 1498
+In progress... (1764)
+[16200] select the unmatched pair [8168,1864]
+score map size = 89574
+In progress... (1281)
+[16350] select the unmatched pair [16850,127]
+score map size = 89643
+In progress... (766)
+[16500] select the unmatched pair [8336,3963]
+score map size = 89651
+In progress... (292)
+[16650] select the unmatched pair [9270,330]
+score map size = 89685
+Finish with inactive_pairs
+Extended seed size:  2745
+Iter num: 4	seed size = 2745

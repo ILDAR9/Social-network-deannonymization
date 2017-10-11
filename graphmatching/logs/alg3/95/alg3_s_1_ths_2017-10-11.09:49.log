@@ -1,0 +1,25 @@
+data/inst_lid_rid.csv
+IGRAPH UN-- 20794 240414 -- 
++ attr: name (v)
+data/vk_lid_rid.csv
+IGRAPH UN-- 24800 463468 -- 
++ attr: name (v)
+{(17669, 2098)}
+With name extension algorithm is selected
+Read Graphs time: 9.870529174804688e-05
+Iter num: 1	seed size = 1
+Seed are expanded
+Finish with inactive_pairs
+Extended seed size:  2
+Iter num: 2	seed size = 2
+Seed are expanded
+Finish with inactive_pairs
+Extended seed size:  0
+Execution time: 0.016165494918823242
+------RESULT-------
+	for lN = 20794, rN = 24800, |seed_0| = 1
+	matched = 1
+		correct = 1; wrong = 0
+	Recall = 0.000048
+	Precision = 1.000000
+	F1-score = 0.000096

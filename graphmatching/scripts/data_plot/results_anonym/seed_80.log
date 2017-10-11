@@ -1,0 +1,84 @@
+/home/ildar/diplom/graphmatching/data/inst_lid_rid.csv
+IGRAPH UN-- 20794 240414 -- 
++ attr: name (v)
+/home/ildar/diplom/graphmatching/data/vk_lid_rid.csv
+IGRAPH UN-- 24800 463468 -- 
++ attr: name (v)
+[(16876, 22410), (15870, 15814), (19618, 10447), (16607, 24295), (9850, 17024), (8765, 21219), (10537, 8741), (1621, 6713), (10421, 13043), (5850, 13350), (8822, 7348), (15569, 16621), (14217, 7288), (20079, 6938), (6055, 4572), (9308, 24553), (4205, 24520), (10606, 17077), (10582, 5959), (10996, 15126), (19320, 13836), (3071, 16909), (9252, 4702), (17576, 24074), (11974, 11516), (13413, 13030), (10830, 6600), (14574, 1316), (6726, 2315), (2207, 21124), (20683, 11543), (20283, 20419), (13050, 11342), (18682, 12159), (20505, 9585), (16805, 9669), (17594, 16584), (1940, 13390), (19157, 768), (9762, 9025), (16798, 17909), (13129, 3613), (14782, 20996), (4775, 3245), (11525, 11797), (16827, 4934), (9375, 19897), (5957, 3044), (1951, 7842), (20759, 18385), (1232, 9017), (13123, 15716), (17207, 10444), (19695, 13108), (15033, 12036), (852, 3578), (17727, 24652), (616, 17269), (2008, 1491), (6570, 1688), (936, 11857), (697, 18184), (7305, 10903), (15174, 13471), (18803, 11296), (10375, 13990), (3898, 17462), (4370, 21117), (13896, 1565), (6257, 2882), (4637, 3457), (4877, 21720), (16607, 24295), (19700, 23458), (13268, 2162), (639, 5160), (2367, 14219), (6294, 1642), (17499, 11618), (8041, 6390)]
+Standard algorithm is selected
+Read Graphs time: 0.0001862049102783203
+Iter num: 1
+seed size = 80
+Seed are expanded
+Correct = 79, Wrong = 321
+Correct = 79, Wrong = 721
+Correct = 79, Wrong = 1121
+Correct = 79, Wrong = 1521
+Correct = 79, Wrong = 1921
+Correct = 80, Wrong = 2320
+Correct = 80, Wrong = 2720
+Correct = 80, Wrong = 3120
+Correct = 80, Wrong = 3520
+Correct = 80, Wrong = 3920
+Correct = 80, Wrong = 4320
+Correct = 80, Wrong = 4720
+In progress... (4974569)
+[5000] select the unmatched pair [2036,958]
+score map size = 20869749
+Correct = 80, Wrong = 5120
+Correct = 80, Wrong = 5520
+Correct = 80, Wrong = 5920
+Correct = 80, Wrong = 6320
+Correct = 80, Wrong = 6720
+Correct = 82, Wrong = 7118
+Correct = 83, Wrong = 7517
+Correct = 83, Wrong = 7917
+Correct = 83, Wrong = 8317
+Correct = 83, Wrong = 8717
+Correct = 83, Wrong = 9117
+Correct = 85, Wrong = 9515
+Finish with inactive_pairs
+Extended seed size:  337867
+Iter num: 2
+seed size = 337867
+Seed are expanded
+Correct = 87, Wrong = 9913
+In progress... (525291)
+[10000] select the unmatched pair [13601,9814]
+score map size = 23653351
+Correct = 87, Wrong = 10313
+Correct = 87, Wrong = 10713
+Correct = 87, Wrong = 11113
+Correct = 87, Wrong = 11513
+Correct = 87, Wrong = 11913
+Correct = 87, Wrong = 12313
+Correct = 87, Wrong = 12713
+Correct = 87, Wrong = 13113
+Correct = 87, Wrong = 13513
+Correct = 87, Wrong = 13913
+Correct = 87, Wrong = 14313
+Finish with inactive_pairs
+Extended seed size:  3182
+Iter num: 3
+seed size = 3182
+Seed are expanded
+Finish with inactive_pairs
+Extended seed size:  58
+Iter num: 4
+seed size = 58
+Seed are expanded
+Finish with inactive_pairs
+Extended seed size:  2
+Iter num: 5
+seed size = 2
+Seed are expanded
+Finish with inactive_pairs
+Extended seed size:  0
+Execution time: 272.18295097351074
+------RESULT-------
+	for lN = 20794, rN = 24800, |seed_0| = 80
+	MATCHED =  14644
+		CORRECT = 87; WRONG = 14557
+	Recall = 0.004184
+	Precision = 0.005941
+	F1-score = 0.004910
