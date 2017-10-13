@@ -9,10 +9,19 @@ import cyrtranslit
 f_prefix = 'data/'
 
 
+def read_edges(f_name):
+    print(f_name)
+    g = ig.Graph.Read_Ncol(f_name, names=True, directed=False)
+    ig.summary(g)
+    return g
+
 def enrich_vk_graph(g):
-    inst_dict = dict()
+    data_dict = dict()
     pat = re.compile("(\d+),(.*),(.*),(.*)")
     pat_word = re.compile('[^a-zA-Zа-яА-Я\d\s]+')
+
+    g.vs['fname'] = ''
+    g.vs['uid'] = None
 
     with open(f_prefix + 'vk_personal2.csv', 'r') as f:
         for line in f:
@@ -20,39 +29,40 @@ def enrich_vk_graph(g):
                 uid, uname, name1, name2 = pat.match(line).groups()
                 name1 = re.sub(pat_word, '', name1).strip().lower()
                 name2 = re.sub(pat_word, '', name2).strip().lower()
-                inst_dict[uid] = (uname, name1 + ' ' + name2)
+                data_dict[uid] = (uname, name1 + ' ' + name2)
             except AttributeError:
                 print(line)
     for v in g.vs:
-        uname, fname = inst_dict[v['name']]
+        uid = v['name']
+        uname, fname = data_dict[uid]
         v['name'] = uname
+        v['uid'] = int(uid)
         v['fname'] = cyrtranslit.to_latin(fname, 'ru').replace("'", '')
 
+
 def enrich_insta_graph(g):
-    inst_dict = dict()
+    data_dict = dict()
     pat = re.compile("(\d+),(.*),(.*)")
     pat_word = re.compile('[^a-zA-Zа-яА-Я\d\s]+')
+
+    g.vs['fname'] = ''
+    g.vs['uid'] = None
 
     with open(f_prefix + 'inst_personal.csv', 'r') as f:
         for line in f:
             uid, uname, fname = pat.match(line).groups()
             fname = re.sub(pat_word, '', fname).strip().lower()
-            inst_dict[uid] = (uname, fname)
+            data_dict[uid] = (uname, fname)
 
     for v in g.vs:
-        uname, fname = inst_dict[v['name']]
+        uid = v['name']
+        uname, fname = data_dict[uid]
         v['name'] = uname
+        v['uid'] = int(uid)
         v['fname'] = cyrtranslit.to_latin(fname, 'ru').replace("'", '')
-
-def read_edges(f_name):
-    print(f_name)
-    g = ig.Graph.Read_Ncol(f_name, names=True, directed=False)
-    ig.summary(g)
-    return g
 
 def gen_seeds(seed_c, lg, rg):
     res = set()
-    i = 0
     while len(res) < seed_c:
         try:
             inx = randint(0, lg.vcount())
@@ -62,7 +72,7 @@ def gen_seeds(seed_c, lg, rg):
             pass
     return res
 
-def proceed(alg_GM, a_c, name_sim_threshold):
+def proceed(alg_GM, a_c, name_sim_threshold, is_repeat):
     inst_g = read_edges(f_prefix + 'inst_lid_rid.csv')
     enrich_insta_graph(inst_g)
 
@@ -73,7 +83,7 @@ def proceed(alg_GM, a_c, name_sim_threshold):
     print(seeds_0)
     s_time = time.time()
 
-    gm = alg_GM(vk_g, inst_g, seeds_0, name_sim_threshold = name_sim_threshold)
+    gm = alg_GM(vk_g, inst_g, seeds_0, name_sim_threshold = name_sim_threshold, is_repeat = is_repeat)
     print("Read Graphs time:", time.time() - s_time)
     gm.execute()
     print("Execution time:", gm.time_elapsed)
@@ -83,8 +93,9 @@ def main():
     from expand_UID import ExpandWhenStuck
     a_c = int(sys.argv[1])
     name_thres = float(sys.argv[2])
+    is_repeat = bool(int(sys.argv[3]))
 
-    gm = proceed(ExpandWhenStuck, a_c, name_sim_threshold = name_thres)
+    gm = proceed(ExpandWhenStuck, a_c, name_sim_threshold = name_thres, is_repeat = is_repeat)
 
     gm.check_result()
     gm.save_result()

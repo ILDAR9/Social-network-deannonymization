@@ -10,12 +10,13 @@ from fuzzywuzzy import fuzz
 
 class ExpandWhenStuck:
 
-    def __init__(self, lg, rg, seeds_0, name_sim_threshold = 0.61):
+    def __init__(self, lg, rg, seeds_0, name_sim_threshold = 0.61, is_repeat=False):
         print("With name extension algorithm is selected")
         self.lg = lg
         self.rg = rg
         self.seed_0_count = len(seeds_0)
 
+        self.with_repeat = is_repeat
         # M < - A_0 ps: A = A_0
         self.lNodeM = set()
         self.rNodeM = set()
@@ -202,15 +203,15 @@ class ExpandWhenStuck:
                 #     print("Cleared bad names storage")
                 # A <- all neighbors of M [i,j] not in Z, i,j not in V_1,V_2(M)
                 self.__extend_seeds_by_matches()
-
-            for s in self.used:
-                l_neighbor, r_neighbor = self.untokenize(s)
-                if not self.__in_matched(l_neighbor, r_neighbor) and s not in used_used and \
-                                self.__name_similar(l_neighbor, r_neighbor) >= 99:
-                    self.seeds.append((l_neighbor, r_neighbor))
-                    used_used.add(s)
-                    print('Updated round %d, seed count = %d. used_used = %d' % (round, len(self.seeds),len(used_used)))
-                    round += 1
+            if self.with_repeat:
+                for s in self.used:
+                    l_neighbor, r_neighbor = self.untokenize(s)
+                    if not self.__in_matched(l_neighbor, r_neighbor) and s not in used_used and \
+                                    self.__name_similar(l_neighbor, r_neighbor) >= 99:
+                        self.seeds.append((l_neighbor, r_neighbor))
+                        used_used.add(s)
+                        print('Updated round %d, seed count = %d. used_used = %d' % (round, len(self.seeds),len(used_used)))
+                        round += 1
         self.time_elapsed = time.time() - self.s_time
 
     def assure_folder_exists(self, path):
@@ -220,10 +221,18 @@ class ExpandWhenStuck:
             os.makedirs(folder)
 
     def save_result(self):
+        repeat_name = 'repeat' if self.with_repeat else 'no_repeat'
         fname = '%.3d/matches_s_%.2d_th_%.3d_t_%s.pickle' % (self.name_sim_threshold, self.seed_0_count, self.name_sim_threshold, time.strftime("%m-%d_%H:%M"))
-        fname = os.path.join('matches', fname)
+        fname = os.path.join('matches', repeat_name, fname)
         self.assure_folder_exists(fname)
-        pickle.dump(self.matches, open(fname, 'wb'))
+
+        lid_rid = []
+        for lnode, rnode in self.matches:
+            lid = self.lg.vs[lnode]['uid']
+            rid = self.rg.vs[rnode]['uid']
+            lid_rid.append((lid,  rid))
+        assert len(lid_rid) == len(self.matches)
+        pickle.dump(lid_rid, open(fname, 'wb'))
 
     def check_result(self):
         correct, wrong = self.__inter_result()

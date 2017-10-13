@@ -26,9 +26,6 @@ def clean_lineinst(line):
     fname = cyrtranslit.to_latin(fname, 'ru').replace("'", '')
     return (uid, uname, fname)
 
-def read_from_matches(fname):
-    pass #ToDo finish
-
 def clean_linevk(line):
     pat = re.compile("(\d+),(.*),(.*),(.*)")
     pat_word = re.compile('[^a-zA-Zа-яА-Я\d\s]+')
@@ -71,7 +68,7 @@ def read_clean_csv(fname, from_raw = True):
 
 def read_combine_df(from_raw = True, merge_how = 'inner'):
 
-    vk = read_clean_csv(fname='vk_personal.csv', from_raw = from_raw)
+    vk = read_clean_csv(fname='vk_personal2.csv', from_raw = from_raw)
     inst = read_clean_csv(fname='inst_personal.csv', from_raw = from_raw)
 
     df = pd.merge(inst, vk, on='uname', how = merge_how)
@@ -99,46 +96,31 @@ def generate_overlap(df, sim_f):
     return ls
 
 def generate_true_mapping(from_raw=False):
-    if from_raw:
-        inst = read_clean_csv(fname='inst_personal.csv', num_col=3)
-        inst.columns = ['uid', 'uname', 'inst_name']
-        inst.to_csv(os.path.join(folder_gen, 'inst_personal.csv'), index=False)
-    else:
-        inst = pd.read_csv(os.path.join(folder_gen, 'inst_personal.csv'))
-    print(inst.head())
-
-    if from_raw:
-        vk = read_clean_csv(fname='vk_personal.csv', num_col=4)
-        vk.columns = ['uid', 'uname', 'vk_name']
-        vk.to_csv(os.path.join(folder_gen, 'vk_personal.csv'), index=False)
-    else:
-        vk = pd.read_csv(os.path.join(folder_gen, 'vk_personal.csv'))
-    print(vk.head())
-
-    inst_uname_id = dict(((d[1], d[0]) for d in inst[['uid', 'uname']].values))
-    vk_id_name = dict(((d[0], d[1]) for d in vk[['uid', 'uname']].values))
-
-    def get_sim(uid_vk):
-        return inst_uname_id[vk_id_name[uid_vk]] if uid_vk in vk_id_name and vk_id_name[uid_vk] in inst_uname_id else None
-
+    df = read_combine_df(from_raw=from_raw)
     fname = 'true_mapping.csv'
     with open(os.path.join(folder_gen, fname), 'w') as rw:
-        ls = generate_overlap(vk, get_sim)
         rw.write('uid_vk,uid_inst\n')
-        for tup in ls:
+        for tup in map(lambda x: (x[0], x[1]), df[['uid_vk', 'uid_inst']].values):
             rw.write('%s,%s\n' % tup)
     return fname
 
-def get_df_1step_and_others(mapping_file_name = 'true_mapping.csv', suffix_name = None, count_1step = 3000):
-    true_mapping = pd.read_csv(os.path.join(folder_gen, mapping_file_name))
+def read_true_mapping(as_set = False):
+    true_mapping = pd.read_csv(os.path.join(folder_gen, 'true_mapping.csv'))
+    if as_set:
+        return set((x[0], x[1]) for x in true_mapping.values)
+    else:
+        return true_mapping
+
+def get_df_1step_and_others(suffix_name = None, count_1step = 3000):
+    true_mapping = read_true_mapping()
     if not suffix_name:
         return true_mapping[:count_1step], true_mapping[count_1step:]
-
-    uid_set = set(true_mapping['uid_' + suffix_name].values[:count_1step])
-    uid_set_othres = set(true_mapping['uid_' + suffix_name].values[count_1step:])
-    df = pd.read_csv(os.path.join(folder_gen, suffix_name + '_personal.csv'))
-    df_1step = df[df['uid'].isin(uid_set)]
-    df_others = df[df['uid'].isin(uid_set_othres)]
+    uid = 'uid_' + suffix_name
+    uid_set = set(true_mapping[uid].values[:count_1step])
+    uid_set_othres = set(true_mapping[uid].values[count_1step:])
+    df = pickle.load(open(os.path.join(folder_data, suffix_name + '_personal.csv.pickle'), "rb"))
+    df_1step = df[df[uid].isin(uid_set)]
+    df_others = df[df[uid].isin(uid_set_othres)]
     print(df.shape, df_1step.shape, df_others.shape)
     return df_1step, df_others
 
@@ -181,47 +163,75 @@ def feature(G1, n, G2, m, bins=21, size=50):
     feature_set.append(abs(n_deg - m_deg) / max(n_deg, m_deg, 1))
     return feature_set
 
+read_g = lambda fname : nx.read_edgelist(os.path.join(folder_data, fname), nodetype = int)
 
-def gen_features(G1, G2, lid_rid):
+def gen_features(data):
+    global f_set1s, f_set2s
+    G1 = data['G1']
+    G2 = data['G2']
+    lid_rid = data['vals_l']
+    thread_num = data['thread_num']
     features = []
     labels = []
 
     rid_othres = np.array(list(set(G2.nodes()) - set((x[1] for x in lid_rid))))
-
-    # set_l = set(G1.nodes())
-    # set_r = set(G2.nodes())
+    print('Start thread', thread_num)
     for i, j in tqdm(lid_rid):
-        # if i in set_l:
-        #     if j in set_r:
         features.append(feature(G1, i, G2, j))
         labels.append(1)
         # Choose randomly
         j_other = random.choice(rid_othres)
-        # if j_other in set_r:
         features.append(feature(G1, i, G2, j_other))
         labels.append(0)
         if random.random() > 0.6:
             j_other = random.choice(rid_othres)
-            # if j_other in set_r:
             features.append(feature(G1, i, G2, j_other))
             labels.append(0)
-    return features, labels
+    return (features, labels)
 
-read_g = lambda fname : nx.read_edgelist(os.path.join(folder_data, fname), nodetype = int)
+def gen_train_data(lid_rid, G1, G2, save_to, threads = 1):
+    load_cache()
+    data_list = prepare_data_for_threads(lid_rid, None, None, G1, G2, threads)
+    if threads > 1:
+        pool = ThreadPool(threads)
 
-def gen_train_data(lid_rid, G1, G2, save_to, from_raw = True):
-    if not from_raw:
-        features, labels = pickle.load(open(os.path.join(folder_gen, save_to), "rb"))
-        return features, labels
+        results = pool.map(gen_features, data_list)
+        pool.close()
+        pool.join()
+        features, labels = zip(*results)
+        features = list(it.chain.from_iterable(features))
+        labels = list(it.chain.from_iterable(labels))
+    else:
+        features, labels = gen_features(data_list[0])
 
-    features, labels = gen_features(G1, G2, lid_rid)
     pickle.dump((features, labels), open( os.path.join(folder_gen, save_to + '.pickle'), "wb" ))
+    clear_cache()
+
+def load_cache():
+    global f_set1s, f_set2s
+    f_set1s = dict(pickle.load(open(os.path.join(folder_gen, 'features_G1.pickle'), "rb")))
+    f_set2s = dict(pickle.load(open(os.path.join(folder_gen, 'features_G2.pickle'), "rb")))
+    print('Cache loaded', len(f_set1s), len(f_set2s))
+
+def clear_cache():
+    global f_set1s, f_set2s
+    if f_set1s:
+        f_set1s.clear()
+    if f_set2s:
+        f_set2s.clear()
+    f_set1s = dict()
+    f_set2s = dict()
+    print('Clear cache', len(f_set1s), len(f_set2s))
+
+def load_train_data(train_file):
+    features, labels = pickle.load(open(os.path.join(folder_gen, train_file + '.pickle'), "rb"))
+    return features, labels
 
 def retrain_model(model, fnames):
     features = []
     labels = []
     for fname in fnames:
-        fets, labs = pickle.load(open(os.path.join(folder_gen, fname + '.pickle'), "rb"))
+        fets, labs = load_train_data(folder_gen, fname + '.pickle')
         features += fets
         labels += labs
 
@@ -260,8 +270,7 @@ def filter_same(results):
     return filtered_res
 
 def precision_recall(lid_rid):
-    true_mapping = pd.read_csv(os.path.join(folder_gen, 'true_mapping.csv'))
-    true_mapping = set((x[0], x[1]) for x in true_mapping.values)
+    true_mapping = read_true_mapping(as_set=True)
     count = 0
     for res in lid_rid:
         if res in true_mapping:
@@ -287,11 +296,14 @@ def find_sim_and_predict(data):
         for row_r in df_vals_r:
             ratio = fuzz.token_set_ratio(row_l[1], row_r[1])
             if ratio > name_sim_threshold:
-                x = np.array(feature(G1, row_l[0], G2, row_r[0]), ).reshape((1, -1))
-                total_count += 1
-                if model.predict(x) == 1:
-                    true_count += 1
-                    res_list.append((row_l[0], row_r[0], ratio))
+                try:
+                    x = np.array(feature(G1, row_l[0], G2, row_r[0]), ).reshape((1, -1))
+                    total_count += 1
+                    if model.predict(x) == 1:
+                        true_count += 1
+                        res_list.append((row_l[0], row_r[0], ratio))
+                except KeyError:
+                    pass
     print('Thread', thread_num, 'True =', true_count, 'False =', total_count - true_count - 1,
           'Total =', total_count, 'True/Total =', true_count / total_count)
     return res_list
@@ -317,17 +329,20 @@ def prepare_data_for_threads(df_l, df_r, model, G1, G2, threads, name_sim_thresh
         data.append(d)
     return data
 
+models = {}
 
 def predict_parallel(df_l, df_r, model, G1, G2, name_sim_threshold, threads=4):
+    load_cache()
     pool = ThreadPool(threads)
-    df_l = df_l[['uid', 'vk_name']].dropna().values
-    df_r = df_r[['uid', 'inst_name']].dropna().values
-    data = prepare_data_for_threads(df_l, df_r, model, G1, G2, threads, name_sim_threshold = name_sim_threshold)
-    results = pool.map(find_sim_and_predict, data)
+    df_l = df_l[['uid', 'name_vk']].dropna().values
+    df_r = df_r[['uid', 'name_inst']].dropna().values
+    data_list = prepare_data_for_threads(df_l, df_r, model, G1, G2, threads, name_sim_threshold = name_sim_threshold)
+    results = pool.map(find_sim_and_predict, data_list)
     pool.close()
     pool.join()
     for i, res in enumerate(results):
         print(i, 'true count', len(res))
+    clear_cache()
     return results
 
 
@@ -342,8 +357,8 @@ def ml_iteration(df_l_others, df_r_others, model, G1, G2, name_sim_threshold, th
     results = predict_parallel(df_l_others, df_r_others, model, G1, G2, name_sim_threshold, threads)
     lid_rid = filter_same(results)
     print('lid_rid',len(lid_rid), len(set((x[0] for x in lid_rid))), len(set((x[1] for x in lid_rid))))
-    pickle.dump(lid_rid, open(os.path.join(folder_gen, save_to + '.pickle'), "wb"))
-    return lid_rid
+    pickle.dump((results, lid_rid), open(os.path.join(folder_gen, save_to + '.pickle'), "wb"))
+    return results, lid_rid
 
 def filter_others_from_predicted(df_l, df_r, lid_rid):
     def filt(df, index):
@@ -353,4 +368,13 @@ def filter_others_from_predicted(df_l, df_r, lid_rid):
     print(len(df_l), len(l), len(lid_rid), len(lid_rid) + len(l))
     return l, r
 
-
+def read_matches(matches_file_name, threshold, is_repeat):
+    folder_repeat = 'repeat' if is_repeat else 'no_repeat'
+    fname = os.path.join(foler_matches, folder_repeat, '%.3d' % threshold, matches_file_name)
+    print(fname)
+    matches = pickle.load(open(fname, 'rb'))
+    print('matches len', len(matches))
+    miter = iter(matches)
+    for i in range(5):
+        print(next(miter))
+    return matches

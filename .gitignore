@@ -10,3 +10,4 @@ logs/
 **/__pycache__/
 *.pickle
 **/out/
+*.bmi
