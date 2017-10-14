@@ -7,15 +7,20 @@ from scipy.stats import ks_2samp
 import pickle
 import os
 from fuzzywuzzy import fuzz
+import numpy as np
 
 class ExpandWhenStuck:
 
-    def __init__(self, lg, rg, seeds_0, name_sim_threshold = 0.61, is_repeat=False):
-        print("With name extension algorithm is selected")
+    def __init__(self, lg, rg, seeds_0, name_sim_threshold = 0.61, is_repeat=False, model = None):
+        if is_repeat:
+            print("With repeated seeds algorithm is selected")
+        else:
+            print('NO seeds repeat algorithm is selected ')
         self.lg = lg
         self.rg = rg
         self.seed_0_count = len(seeds_0)
-
+        if is_repeat:
+            print('WITH REPEAT!!!')
         self.with_repeat = is_repeat
         # M < - A_0 ps: A = A_0
         self.lNodeM = set()
@@ -28,9 +33,23 @@ class ExpandWhenStuck:
         self.inactive_pairs = SortedSet(key = lambda x : (x[2],  -1 * self.f_deg_diff(x)))
         self.score_map = dict()
         self.bad_name = set()
+        if model:
+            print('WITH MODEL!!!')
+            self.model = model
+            self.load_cache()
+            self.decide = self.__decide_with_model
+        else:
+            self.decide = self.__decide
         self.name_sim_threshold = int(name_sim_threshold * 100)
         print('name_sim_threshold', self.name_sim_threshold)
 
+    def load_cache(self):
+        base_folder = '/home/ildar/projects/pycharm/social_network_revealing/graphmatching/'
+        folder_data = os.path.join(base_folder, 'data')
+        folder_gen = os.path.join(folder_data, 'generated')
+        self.f_set1s = dict(pickle.load(open(os.path.join(folder_gen, 'features_G1.pickle'), "rb")))
+        self.f_set2s = dict(pickle.load(open(os.path.join(folder_gen, 'features_G2.pickle'), "rb")))
+        print('Cache loaded', len(self.f_set1s), len(self.f_set2s))
 
     def to_str(self, ln ,rn): return '%d|%d' % (ln, rn)
 
@@ -61,7 +80,7 @@ class ExpandWhenStuck:
                 ID_str = self.to_str(l_neighbor, r_neighbor)
                 if ID_str in self.bad_name:
                     continue
-                if self.__name_similar(l_neighbor, r_neighbor) < name_sim_threshold:
+                if not self.decide(l_neighbor, r_neighbor):
                     self.bad_name.add(ID_str)
                     continue # ToDo repair
 
@@ -97,6 +116,25 @@ class ExpandWhenStuck:
                 return s
         return None
 
+    def __decide(self, l_neighbor,  r_neighbor):
+        return self.__name_similar(l_neighbor, r_neighbor) >= self.name_sim_threshold
+
+    def __decide_with_model(self, l_neighbor,  r_neighbor):
+        lv = self.lg.vs[l_neighbor]
+        rv = self.rg.vs[r_neighbor]
+
+        feature_l = self.f_set1s[lv['uid']]
+        feature_r = self.f_set2s[rv['uid']]
+
+        feature_set = feature_l + feature_r
+        n_deg = lv.degree()
+        m_deg = rv.degree()
+        feature_set.append(abs(n_deg - m_deg) / max(n_deg, m_deg, 1))
+        ratio = self.__name_similar(l_neighbor, r_neighbor)
+        feature_set.append(ratio)
+        x = np.array(feature_set).reshape((1, -1))
+        return ratio >= self.name_sim_threshold and self.model.predict(x) == 1
+
 
     def __extend_seeds_by_matches(self):
         # A <- all neighbors of M [i,j] not in Z, i,j not in V_1,V_2(M)
@@ -110,7 +148,7 @@ class ExpandWhenStuck:
                     if self.__in_matched(l_neighbor, r_neighbor) or ID_str in self.used or ID_str in self.bad_name:
                         continue
 
-                    if self.__name_similar(l_neighbor, r_neighbor) < self.name_sim_threshold:
+                    if not self.decide(l_neighbor,  r_neighbor):
                         self.bad_name.add(ID_str)
                         continue
                     self.seeds.append((l_neighbor,r_neighbor))
@@ -221,7 +259,10 @@ class ExpandWhenStuck:
             os.makedirs(folder)
 
     def save_result(self):
-        repeat_name = 'repeat' if self.with_repeat else 'no_repeat'
+        if self.seed_0_count > 100:
+            repeat_name = 'seed_matches'
+        else:
+            repeat_name = 'repeat' if self.with_repeat else 'no_repeat'
         fname = '%.3d/matches_s_%.2d_th_%.3d_t_%s.pickle' % (self.name_sim_threshold, self.seed_0_count, self.name_sim_threshold, time.strftime("%m-%d_%H:%M"))
         fname = os.path.join('matches', repeat_name, fname)
         self.assure_folder_exists(fname)

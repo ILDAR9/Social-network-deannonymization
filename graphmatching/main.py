@@ -2,9 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import igraph as ig
-import sys, time, re
+import sys, time, re, os
 from random import randint
 import cyrtranslit
+import pickle
+sys.path.append('./scripts')
+
+import ml_utils as utils
+
+
 
 f_prefix = 'data/'
 
@@ -61,18 +67,42 @@ def enrich_insta_graph(g):
         v['uid'] = int(uid)
         v['fname'] = cyrtranslit.to_latin(fname, 'ru').replace("'", '')
 
-def gen_seeds(seed_c, lg, rg):
-    res = set()
-    while len(res) < seed_c:
-        try:
-            inx = randint(0, lg.vcount())
-            inx2 = rg.vs.find(name=lg.vs[inx]['name']).index
-            res.add((inx, inx2))
-        except ValueError:
-            pass
+def gen_seeds(a_c, lg, rg):
+    s= time.time()
+    if a_c == 0: ### FILE NAME TO LOAD INITIAL SEEDS FROM MATCHES
+        matches_file_name = 'matches_s_01_th_091_t_10-12_13:19.pickle'
+        lid_rid = utils.read_matches(matches_file_name, threshold = 91, is_repeat=True)
+        res = []
+        ldict, rdict = {}, {}
+        for lv in lg.vs:
+            ldict[lv['uid']] = lv.index
+        for rv in rg.vs:
+            rdict[rv['uid']] = rv.index
+
+        for lid, rid in lid_rid:
+            ind_l = ldict[lid]
+            ind_r = rdict[rid]
+            res.append((ind_l, ind_r))
+        print('Len lid_rid and res is same', len(lid_rid) == len(res))
+    else:
+        res = set()
+        while len(res) < a_c:
+            try:
+                inx = randint(0, lg.vcount())
+                inx2 = rg.vs.find(name=lg.vs[inx]['name']).index
+                res.add((inx, inx2))
+            except ValueError:
+                pass
+    print('Seed generation time', time.time() - s)
     return res
 
-def proceed(alg_GM, a_c, name_sim_threshold, is_repeat):
+def load_model():
+    return pickle.load(open(os.path.join(utils.folder_gen, 'forest.pickle'), 'rb'))
+
+def proceed(alg_GM, a_c, name_sim_threshold, is_repeat, is_model):
+    if a_c < 0:
+        raise Exception('a_c is less than 0.', a_c)
+
     inst_g = read_edges(f_prefix + 'inst_lid_rid.csv')
     enrich_insta_graph(inst_g)
 
@@ -80,10 +110,13 @@ def proceed(alg_GM, a_c, name_sim_threshold, is_repeat):
     enrich_vk_graph(vk_g)
 
     seeds_0 = gen_seeds(a_c, vk_g, inst_g)
-    print(seeds_0)
+
+    print('Seeds count', len(seeds_0))
     s_time = time.time()
 
-    gm = alg_GM(vk_g, inst_g, seeds_0, name_sim_threshold = name_sim_threshold, is_repeat = is_repeat)
+    model = load_model() if is_model else None
+
+    gm = alg_GM(vk_g, inst_g, seeds_0, name_sim_threshold = name_sim_threshold, is_repeat = is_repeat, model = model)
     print("Read Graphs time:", time.time() - s_time)
     gm.execute()
     print("Execution time:", gm.time_elapsed)
@@ -94,8 +127,11 @@ def main():
     a_c = int(sys.argv[1])
     name_thres = float(sys.argv[2])
     is_repeat = bool(int(sys.argv[3]))
+    is_model = bool(int(sys.argv[4]))
+    print('is_repeat', is_repeat)
+    print('is_model', is_model)
 
-    gm = proceed(ExpandWhenStuck, a_c, name_sim_threshold = name_thres, is_repeat = is_repeat)
+    gm = proceed(ExpandWhenStuck, a_c, name_sim_threshold = name_thres, is_repeat = is_repeat, is_model = is_model)
 
     gm.check_result()
     gm.save_result()

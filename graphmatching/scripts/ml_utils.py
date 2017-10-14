@@ -11,10 +11,10 @@ import pickle
 import itertools as it
 from multiprocessing import Pool as ThreadPool
 
-
-folder_data = '../data/'
+base_folder = '/home/ildar/projects/pycharm/social_network_revealing/graphmatching/'
+folder_data = os.path.join(base_folder, 'data')
 folder_gen = os.path.join(folder_data, 'generated')
-foler_matches = '../matches'
+folder_matches = os.path.join(base_folder, 'matches')
 
 def clean_lineinst(line):
     pat = re.compile("(\d+),(.*),(.*)")
@@ -161,9 +161,34 @@ def feature(G1, n, G2, m, bins=21, size=50):
     n_deg = G1.degree(n)
     m_deg = G2.degree(m)
     feature_set.append(abs(n_deg - m_deg) / max(n_deg, m_deg, 1))
+
+    # name sim coef
+    ratio = fuzz.token_set_ratio(G1.node[n]['fname'], G2.node[m]['fname'])
+    feature_set.append(ratio)
+
     return feature_set
 
-read_g = lambda fname : nx.read_edgelist(os.path.join(folder_data, fname), nodetype = int)
+def read_gs(g1_fname, g2_fname, from_raw):
+    if not from_raw:
+        G1, G2 = pickle.load(open(os.path.join(folder_gen, 'G1_G2.pickle'), "rb"))
+    else:
+        read_lid_rid = lambda fname : nx.read_edgelist(os.path.join(folder_data, fname), nodetype = int)
+        G1 = read_lid_rid(g1_fname)
+        G2 = read_lid_rid(g2_fname)
+
+        df = read_combine_df(from_raw=False, merge_how='outer')
+        for node in G1.nodes():
+            G1.node[node]['fname'] = df[df['uid_vk'] == node]['name_vk'].values[0]
+
+        for node in G2.nodes():
+            G2.node[node]['fname'] = df[df['uid_inst'] == node]['name_inst'].values[0]
+
+        pickle.dump((G1, G2), open(os.path.join(folder_gen, 'G1_G2.pickle'), "wb"))
+    print('G1 has all fname', all((G1.node[x]['fname'] for x in G1.nodes())))
+    print('G2 has all fname', all((G2.node[x]['fname'] for x in G2.nodes())))
+    return G1, G2
+
+
 
 def gen_features(data):
     global f_set1s, f_set2s
@@ -370,8 +395,8 @@ def filter_others_from_predicted(df_l, df_r, lid_rid):
 
 def read_matches(matches_file_name, threshold, is_repeat):
     folder_repeat = 'repeat' if is_repeat else 'no_repeat'
-    fname = os.path.join(foler_matches, folder_repeat, '%.3d' % threshold, matches_file_name)
-    print(fname)
+    fname = os.path.join(folder_matches, folder_repeat, '%.3d' % threshold, matches_file_name)
+    print(fname[3:])
     matches = pickle.load(open(fname, 'rb'))
     print('matches len', len(matches))
     miter = iter(matches)
