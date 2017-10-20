@@ -1,0 +1,3876 @@
+backend: tensorflow
+class_name: Model
+config:
+  input_layers:
+  - [in_data, 0, 0]
+  layers:
+  - class_name: InputLayer
+    config:
+      batch_input_shape: !!python/tuple [null, 87]
+      dtype: float32
+      name: in_data
+      sparse: false
+    inbound_nodes: []
+    name: in_data
+  - class_name: BatchNormalization
+    config:
+      axis: -1
+      beta_constraint: null
+      beta_initializer:
+        class_name: Zeros
+        config: {}
+      beta_regularizer: null
+      center: true
+      epsilon: 0.001
+      gamma_constraint: null
+      gamma_initializer:
+        class_name: Ones
+        config: {}
+      gamma_regularizer: null
+      momentum: 0.99
+      moving_mean_initializer:
+        class_name: Zeros
+        config: {}
+      moving_variance_initializer:
+        class_name: Ones
+        config: {}
+      name: batch_normalization_16
+      scale: true
+      trainable: true
+    inbound_nodes:
+    - - - in_data
+        - 0
+        - 0
+        - {}
+    name: batch_normalization_16
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_179
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_179
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_180
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_180
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_181
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_181
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_182
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_182
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_183
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_183
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_184
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_184
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_185
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_185
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_186
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_186
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_187
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_187
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_188
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_188
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_189
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_189
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_190
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_190
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_191
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_191
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_192
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_192
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_193
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_193
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_194
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_194
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_195
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_195
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_196
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_196
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_197
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_197
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_198
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_198
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_199
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_199
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_200
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_200
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_201
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_201
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_202
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_202
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_203
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_203
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_204
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_204
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_205
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_205
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_206
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_206
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_207
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_207
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_208
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_208
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_209
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_209
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_210
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_210
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_211
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_211
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_212
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_212
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_213
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_213
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_214
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_214
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_215
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_215
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_216
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_216
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_217
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_217
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_218
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_218
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_219
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_219
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_220
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_220
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_221
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_221
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_222
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_222
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_223
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_223
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_224
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_224
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_225
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_225
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_226
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_226
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_227
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_227
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_228
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_228
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_229
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_229
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_230
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_230
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_231
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_231
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_232
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_232
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_233
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_233
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_234
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_234
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_235
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_235
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_236
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_236
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_237
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_237
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_238
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_238
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_239
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_239
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_240
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_240
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_241
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_241
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_242
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_242
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_243
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_243
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_244
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_244
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_245
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_245
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_246
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_246
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_247
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_247
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_248
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_248
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_249
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_249
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_250
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_250
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_251
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_251
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_252
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_252
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_253
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_253
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_254
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_254
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_255
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_255
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_256
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_256
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_257
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_257
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_258
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_258
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_259
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_259
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_260
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_260
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s\x18\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\x88\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\0\0\0\xA9\0\
+        )\x01\xDA\x01x)\x01\xDA\x01ir\x02\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\e\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_261
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1C\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_261
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x05\0\0\0\x13\0\0\0s \0\0\0|\0d\0d\0\N\x02\
+        t\0\x88\0\x17\0t\0\x88\0\x17\0d\x01\x17\0\N\x02f\x02\x19\0S\0)\x02N\xE9\x01\
+        \0\0\0)\x01\xDA\x03bin)\x01\xDA\x01x)\x01\xDA\x01i\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\x1D\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [41]
+      function_type: lambda
+      name: lambda_262
+      output_shape: !!python/tuple ["\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x02\0\0\0S\0\
+          \0\0s\f\0\0\0|\0d\x01\x19\0d\x02f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x01\0\0\0\
+          \xA9\0)\x01\xDA\bin_shaper\x03\0\0\0r\x03\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+          \b<lambda>\x1E\0\0\0s\0\0\0\0", null, null]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_262
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_91, trainable: true}
+    inbound_nodes:
+    - - - lambda_179
+        - 0
+        - 0
+        - &id001 {}
+      - - lambda_180
+        - 0
+        - 0
+        - *id001
+    name: concatenate_91
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_92, trainable: true}
+    inbound_nodes:
+    - - - lambda_181
+        - 0
+        - 0
+        - &id002 {}
+      - - lambda_182
+        - 0
+        - 0
+        - *id002
+    name: concatenate_92
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_93, trainable: true}
+    inbound_nodes:
+    - - - lambda_183
+        - 0
+        - 0
+        - &id003 {}
+      - - lambda_184
+        - 0
+        - 0
+        - *id003
+    name: concatenate_93
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_94, trainable: true}
+    inbound_nodes:
+    - - - lambda_185
+        - 0
+        - 0
+        - &id004 {}
+      - - lambda_186
+        - 0
+        - 0
+        - *id004
+    name: concatenate_94
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_95, trainable: true}
+    inbound_nodes:
+    - - - lambda_187
+        - 0
+        - 0
+        - &id005 {}
+      - - lambda_188
+        - 0
+        - 0
+        - *id005
+    name: concatenate_95
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_96, trainable: true}
+    inbound_nodes:
+    - - - lambda_189
+        - 0
+        - 0
+        - &id006 {}
+      - - lambda_190
+        - 0
+        - 0
+        - *id006
+    name: concatenate_96
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_97, trainable: true}
+    inbound_nodes:
+    - - - lambda_191
+        - 0
+        - 0
+        - &id007 {}
+      - - lambda_192
+        - 0
+        - 0
+        - *id007
+    name: concatenate_97
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_98, trainable: true}
+    inbound_nodes:
+    - - - lambda_193
+        - 0
+        - 0
+        - &id008 {}
+      - - lambda_194
+        - 0
+        - 0
+        - *id008
+    name: concatenate_98
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_99, trainable: true}
+    inbound_nodes:
+    - - - lambda_195
+        - 0
+        - 0
+        - &id009 {}
+      - - lambda_196
+        - 0
+        - 0
+        - *id009
+    name: concatenate_99
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_100, trainable: true}
+    inbound_nodes:
+    - - - lambda_197
+        - 0
+        - 0
+        - &id010 {}
+      - - lambda_198
+        - 0
+        - 0
+        - *id010
+    name: concatenate_100
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_101, trainable: true}
+    inbound_nodes:
+    - - - lambda_199
+        - 0
+        - 0
+        - &id011 {}
+      - - lambda_200
+        - 0
+        - 0
+        - *id011
+    name: concatenate_101
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_102, trainable: true}
+    inbound_nodes:
+    - - - lambda_201
+        - 0
+        - 0
+        - &id012 {}
+      - - lambda_202
+        - 0
+        - 0
+        - *id012
+    name: concatenate_102
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_103, trainable: true}
+    inbound_nodes:
+    - - - lambda_203
+        - 0
+        - 0
+        - &id013 {}
+      - - lambda_204
+        - 0
+        - 0
+        - *id013
+    name: concatenate_103
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_104, trainable: true}
+    inbound_nodes:
+    - - - lambda_205
+        - 0
+        - 0
+        - &id014 {}
+      - - lambda_206
+        - 0
+        - 0
+        - *id014
+    name: concatenate_104
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_105, trainable: true}
+    inbound_nodes:
+    - - - lambda_207
+        - 0
+        - 0
+        - &id015 {}
+      - - lambda_208
+        - 0
+        - 0
+        - *id015
+    name: concatenate_105
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_106, trainable: true}
+    inbound_nodes:
+    - - - lambda_209
+        - 0
+        - 0
+        - &id016 {}
+      - - lambda_210
+        - 0
+        - 0
+        - *id016
+    name: concatenate_106
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_107, trainable: true}
+    inbound_nodes:
+    - - - lambda_211
+        - 0
+        - 0
+        - &id017 {}
+      - - lambda_212
+        - 0
+        - 0
+        - *id017
+    name: concatenate_107
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_108, trainable: true}
+    inbound_nodes:
+    - - - lambda_213
+        - 0
+        - 0
+        - &id018 {}
+      - - lambda_214
+        - 0
+        - 0
+        - *id018
+    name: concatenate_108
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_109, trainable: true}
+    inbound_nodes:
+    - - - lambda_215
+        - 0
+        - 0
+        - &id019 {}
+      - - lambda_216
+        - 0
+        - 0
+        - *id019
+    name: concatenate_109
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_110, trainable: true}
+    inbound_nodes:
+    - - - lambda_217
+        - 0
+        - 0
+        - &id020 {}
+      - - lambda_218
+        - 0
+        - 0
+        - *id020
+    name: concatenate_110
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_111, trainable: true}
+    inbound_nodes:
+    - - - lambda_219
+        - 0
+        - 0
+        - &id021 {}
+      - - lambda_220
+        - 0
+        - 0
+        - *id021
+    name: concatenate_111
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_112, trainable: true}
+    inbound_nodes:
+    - - - lambda_221
+        - 0
+        - 0
+        - &id022 {}
+      - - lambda_222
+        - 0
+        - 0
+        - *id022
+    name: concatenate_112
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_113, trainable: true}
+    inbound_nodes:
+    - - - lambda_223
+        - 0
+        - 0
+        - &id023 {}
+      - - lambda_224
+        - 0
+        - 0
+        - *id023
+    name: concatenate_113
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_114, trainable: true}
+    inbound_nodes:
+    - - - lambda_225
+        - 0
+        - 0
+        - &id024 {}
+      - - lambda_226
+        - 0
+        - 0
+        - *id024
+    name: concatenate_114
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_115, trainable: true}
+    inbound_nodes:
+    - - - lambda_227
+        - 0
+        - 0
+        - &id025 {}
+      - - lambda_228
+        - 0
+        - 0
+        - *id025
+    name: concatenate_115
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_116, trainable: true}
+    inbound_nodes:
+    - - - lambda_229
+        - 0
+        - 0
+        - &id026 {}
+      - - lambda_230
+        - 0
+        - 0
+        - *id026
+    name: concatenate_116
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_117, trainable: true}
+    inbound_nodes:
+    - - - lambda_231
+        - 0
+        - 0
+        - &id027 {}
+      - - lambda_232
+        - 0
+        - 0
+        - *id027
+    name: concatenate_117
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_118, trainable: true}
+    inbound_nodes:
+    - - - lambda_233
+        - 0
+        - 0
+        - &id028 {}
+      - - lambda_234
+        - 0
+        - 0
+        - *id028
+    name: concatenate_118
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_119, trainable: true}
+    inbound_nodes:
+    - - - lambda_235
+        - 0
+        - 0
+        - &id029 {}
+      - - lambda_236
+        - 0
+        - 0
+        - *id029
+    name: concatenate_119
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_120, trainable: true}
+    inbound_nodes:
+    - - - lambda_237
+        - 0
+        - 0
+        - &id030 {}
+      - - lambda_238
+        - 0
+        - 0
+        - *id030
+    name: concatenate_120
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_121, trainable: true}
+    inbound_nodes:
+    - - - lambda_239
+        - 0
+        - 0
+        - &id031 {}
+      - - lambda_240
+        - 0
+        - 0
+        - *id031
+    name: concatenate_121
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_122, trainable: true}
+    inbound_nodes:
+    - - - lambda_241
+        - 0
+        - 0
+        - &id032 {}
+      - - lambda_242
+        - 0
+        - 0
+        - *id032
+    name: concatenate_122
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_123, trainable: true}
+    inbound_nodes:
+    - - - lambda_243
+        - 0
+        - 0
+        - &id033 {}
+      - - lambda_244
+        - 0
+        - 0
+        - *id033
+    name: concatenate_123
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_124, trainable: true}
+    inbound_nodes:
+    - - - lambda_245
+        - 0
+        - 0
+        - &id034 {}
+      - - lambda_246
+        - 0
+        - 0
+        - *id034
+    name: concatenate_124
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_125, trainable: true}
+    inbound_nodes:
+    - - - lambda_247
+        - 0
+        - 0
+        - &id035 {}
+      - - lambda_248
+        - 0
+        - 0
+        - *id035
+    name: concatenate_125
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_126, trainable: true}
+    inbound_nodes:
+    - - - lambda_249
+        - 0
+        - 0
+        - &id036 {}
+      - - lambda_250
+        - 0
+        - 0
+        - *id036
+    name: concatenate_126
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_127, trainable: true}
+    inbound_nodes:
+    - - - lambda_251
+        - 0
+        - 0
+        - &id037 {}
+      - - lambda_252
+        - 0
+        - 0
+        - *id037
+    name: concatenate_127
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_128, trainable: true}
+    inbound_nodes:
+    - - - lambda_253
+        - 0
+        - 0
+        - &id038 {}
+      - - lambda_254
+        - 0
+        - 0
+        - *id038
+    name: concatenate_128
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_129, trainable: true}
+    inbound_nodes:
+    - - - lambda_255
+        - 0
+        - 0
+        - &id039 {}
+      - - lambda_256
+        - 0
+        - 0
+        - *id039
+    name: concatenate_129
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_130, trainable: true}
+    inbound_nodes:
+    - - - lambda_257
+        - 0
+        - 0
+        - &id040 {}
+      - - lambda_258
+        - 0
+        - 0
+        - *id040
+    name: concatenate_130
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_131, trainable: true}
+    inbound_nodes:
+    - - - lambda_259
+        - 0
+        - 0
+        - &id041 {}
+      - - lambda_260
+        - 0
+        - 0
+        - *id041
+    name: concatenate_131
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_132, trainable: true}
+    inbound_nodes:
+    - - - lambda_261
+        - 0
+        - 0
+        - &id042 {}
+      - - lambda_262
+        - 0
+        - 0
+        - *id042
+    name: concatenate_132
+  - class_name: Lambda
+    config:
+      arguments: {}
+      function: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x04\0\0\0\x13\0\0\0s\x16\0\0\0|\0d\0d\0\N\
+        \x02\x88\0\v\0d\0\N\x02f\x02\x19\0S\0)\x01N\xA9\0)\x01\xDA\x01x)\x01\xDA\f\
+        others_countr\x01\0\0\0\xFA <ipython-input-313-ad27bf770b40>\xDA\b<lambda>!\0\
+        \0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [3]
+      function_type: lambda
+      name: lambda_263
+      output_shape: !!python/tuple
+      - "\xE3\x01\0\0\0\0\0\0\0\x01\0\0\0\x04\0\0\0\x13\0\0\0s\x14\0\0\0|\0d\x01\x19\
+        \0\x88\0t\0d\x02\x14\0\x18\0f\x02S\0)\x03N\xE9\0\0\0\0\xE9\x02\0\0\0)\x01\xDA\
+        \x03bin)\x01\xDA\bin_shape)\x01\xDA\x0Efeature_amount\xA9\0\xFA <ipython-input-313-ad27bf770b40>\xDA\
+        \b<lambda>\"\0\0\0s\0\0\0\0"
+      - null
+      - !!python/tuple [87]
+      output_shape_type: lambda
+      trainable: true
+    inbound_nodes:
+    - - - batch_normalization_16
+        - 0
+        - 0
+        - {}
+    name: lambda_263
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_109
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_91
+        - 0
+        - 0
+        - {}
+    name: dense_109
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_110
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_92
+        - 0
+        - 0
+        - {}
+    name: dense_110
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_111
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_93
+        - 0
+        - 0
+        - {}
+    name: dense_111
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_112
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_94
+        - 0
+        - 0
+        - {}
+    name: dense_112
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_113
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_95
+        - 0
+        - 0
+        - {}
+    name: dense_113
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_114
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_96
+        - 0
+        - 0
+        - {}
+    name: dense_114
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_115
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_97
+        - 0
+        - 0
+        - {}
+    name: dense_115
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_116
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_98
+        - 0
+        - 0
+        - {}
+    name: dense_116
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_117
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_99
+        - 0
+        - 0
+        - {}
+    name: dense_117
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_118
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_100
+        - 0
+        - 0
+        - {}
+    name: dense_118
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_119
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_101
+        - 0
+        - 0
+        - {}
+    name: dense_119
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_120
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_102
+        - 0
+        - 0
+        - {}
+    name: dense_120
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_121
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_103
+        - 0
+        - 0
+        - {}
+    name: dense_121
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_122
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_104
+        - 0
+        - 0
+        - {}
+    name: dense_122
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_123
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_105
+        - 0
+        - 0
+        - {}
+    name: dense_123
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_124
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_106
+        - 0
+        - 0
+        - {}
+    name: dense_124
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_125
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_107
+        - 0
+        - 0
+        - {}
+    name: dense_125
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_126
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_108
+        - 0
+        - 0
+        - {}
+    name: dense_126
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_127
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_109
+        - 0
+        - 0
+        - {}
+    name: dense_127
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_128
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_110
+        - 0
+        - 0
+        - {}
+    name: dense_128
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_129
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_111
+        - 0
+        - 0
+        - {}
+    name: dense_129
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_130
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_112
+        - 0
+        - 0
+        - {}
+    name: dense_130
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_131
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_113
+        - 0
+        - 0
+        - {}
+    name: dense_131
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_132
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_114
+        - 0
+        - 0
+        - {}
+    name: dense_132
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_133
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_115
+        - 0
+        - 0
+        - {}
+    name: dense_133
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_134
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_116
+        - 0
+        - 0
+        - {}
+    name: dense_134
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_135
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_117
+        - 0
+        - 0
+        - {}
+    name: dense_135
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_136
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_118
+        - 0
+        - 0
+        - {}
+    name: dense_136
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_137
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_119
+        - 0
+        - 0
+        - {}
+    name: dense_137
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_138
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_120
+        - 0
+        - 0
+        - {}
+    name: dense_138
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_139
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_121
+        - 0
+        - 0
+        - {}
+    name: dense_139
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_140
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_122
+        - 0
+        - 0
+        - {}
+    name: dense_140
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_141
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_123
+        - 0
+        - 0
+        - {}
+    name: dense_141
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_142
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_124
+        - 0
+        - 0
+        - {}
+    name: dense_142
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_143
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_125
+        - 0
+        - 0
+        - {}
+    name: dense_143
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_144
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_126
+        - 0
+        - 0
+        - {}
+    name: dense_144
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_145
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_127
+        - 0
+        - 0
+        - {}
+    name: dense_145
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_146
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_128
+        - 0
+        - 0
+        - {}
+    name: dense_146
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_147
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_129
+        - 0
+        - 0
+        - {}
+    name: dense_147
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_148
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_130
+        - 0
+        - 0
+        - {}
+    name: dense_148
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_149
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_131
+        - 0
+        - 0
+        - {}
+    name: dense_149
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_150
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_132
+        - 0
+        - 0
+        - {}
+    name: dense_150
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_151
+      trainable: true
+      units: 3
+      use_bias: true
+    inbound_nodes:
+    - - - lambda_263
+        - 0
+        - 0
+        - {}
+    name: dense_151
+  - class_name: Concatenate
+    config: {axis: -1, name: concatenate_133, trainable: true}
+    inbound_nodes:
+    - - - dense_109
+        - 0
+        - 0
+        - &id043 {}
+      - - dense_110
+        - 0
+        - 0
+        - *id043
+      - - dense_111
+        - 0
+        - 0
+        - *id043
+      - - dense_112
+        - 0
+        - 0
+        - *id043
+      - - dense_113
+        - 0
+        - 0
+        - *id043
+      - - dense_114
+        - 0
+        - 0
+        - *id043
+      - - dense_115
+        - 0
+        - 0
+        - *id043
+      - - dense_116
+        - 0
+        - 0
+        - *id043
+      - - dense_117
+        - 0
+        - 0
+        - *id043
+      - - dense_118
+        - 0
+        - 0
+        - *id043
+      - - dense_119
+        - 0
+        - 0
+        - *id043
+      - - dense_120
+        - 0
+        - 0
+        - *id043
+      - - dense_121
+        - 0
+        - 0
+        - *id043
+      - - dense_122
+        - 0
+        - 0
+        - *id043
+      - - dense_123
+        - 0
+        - 0
+        - *id043
+      - - dense_124
+        - 0
+        - 0
+        - *id043
+      - - dense_125
+        - 0
+        - 0
+        - *id043
+      - - dense_126
+        - 0
+        - 0
+        - *id043
+      - - dense_127
+        - 0
+        - 0
+        - *id043
+      - - dense_128
+        - 0
+        - 0
+        - *id043
+      - - dense_129
+        - 0
+        - 0
+        - *id043
+      - - dense_130
+        - 0
+        - 0
+        - *id043
+      - - dense_131
+        - 0
+        - 0
+        - *id043
+      - - dense_132
+        - 0
+        - 0
+        - *id043
+      - - dense_133
+        - 0
+        - 0
+        - *id043
+      - - dense_134
+        - 0
+        - 0
+        - *id043
+      - - dense_135
+        - 0
+        - 0
+        - *id043
+      - - dense_136
+        - 0
+        - 0
+        - *id043
+      - - dense_137
+        - 0
+        - 0
+        - *id043
+      - - dense_138
+        - 0
+        - 0
+        - *id043
+      - - dense_139
+        - 0
+        - 0
+        - *id043
+      - - dense_140
+        - 0
+        - 0
+        - *id043
+      - - dense_141
+        - 0
+        - 0
+        - *id043
+      - - dense_142
+        - 0
+        - 0
+        - *id043
+      - - dense_143
+        - 0
+        - 0
+        - *id043
+      - - dense_144
+        - 0
+        - 0
+        - *id043
+      - - dense_145
+        - 0
+        - 0
+        - *id043
+      - - dense_146
+        - 0
+        - 0
+        - *id043
+      - - dense_147
+        - 0
+        - 0
+        - *id043
+      - - dense_148
+        - 0
+        - 0
+        - *id043
+      - - dense_149
+        - 0
+        - 0
+        - *id043
+      - - dense_150
+        - 0
+        - 0
+        - *id043
+      - - dense_151
+        - 0
+        - 0
+        - *id043
+    name: concatenate_133
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_152
+      trainable: true
+      units: 45
+      use_bias: true
+    inbound_nodes:
+    - - - concatenate_133
+        - 0
+        - 0
+        - {}
+    name: dense_152
+  - class_name: Dense
+    config:
+      activation: relu
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: dense_153
+      trainable: true
+      units: 22
+      use_bias: true
+    inbound_nodes:
+    - - - dense_152
+        - 0
+        - 0
+        - {}
+    name: dense_153
+  - class_name: Dense
+    config:
+      activation: sigmoid
+      activity_regularizer: null
+      bias_constraint: null
+      bias_initializer:
+        class_name: Zeros
+        config: {}
+      bias_regularizer: null
+      kernel_constraint: null
+      kernel_initializer:
+        class_name: VarianceScaling
+        config: {distribution: uniform, mode: fan_avg, scale: 1.0, seed: null}
+      kernel_regularizer: null
+      name: out_states
+      trainable: true
+      units: 1
+      use_bias: true
+    inbound_nodes:
+    - - - dense_153
+        - 0
+        - 0
+        - {}
+    name: out_states
+  name: model_12
+  output_layers:
+  - [out_states, 0, 0]
+keras_version: 2.0.5

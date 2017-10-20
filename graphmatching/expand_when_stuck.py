@@ -171,8 +171,6 @@ class ExpandWhenStuck:
 
     def execute(self):
         self.s_time = time.time()
-        lg = self.lg
-        rg = self.rg
 
         iter_num = 0
         show_counter = 0

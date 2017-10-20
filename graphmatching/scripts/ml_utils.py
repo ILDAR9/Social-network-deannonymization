@@ -10,6 +10,7 @@ import numpy as np
 import pickle
 import itertools as it
 from multiprocessing import Pool as ThreadPool
+from importlib import reload
 
 base_folder = '/home/ildar/projects/pycharm/social_network_revealing/graphmatching/'
 folder_data = os.path.join(base_folder, 'data')
@@ -143,6 +144,18 @@ def deg_dist(G, n, bins, size):
 f_set1s = dict()
 f_set2s = dict()
 
+def get_degs(g, uid):
+    degs = []
+    for v in g[uid]:
+        degs.append(g.degree(v))
+    return degs
+
+def double_deg_degs(g, uid):
+    degs = []
+    for v in g[uid]:
+        degs += get_degs(g,v)
+    return degs
+
 def feature(G1, n, G2, m, bins=21, size=50):
     if n in f_set1s:
         f_set1 = f_set1s[n]
@@ -155,16 +168,21 @@ def feature(G1, n, G2, m, bins=21, size=50):
     else:
         f_set2 = deg_dist(G2, m, bins, size)
         f_set2s[m] = f_set2
-
     feature_set = f_set1 + f_set2
+
     # the Silhouette Coefficient
     n_deg = G1.degree(n)
     m_deg = G2.degree(m)
     feature_set.append(abs(n_deg - m_deg) / max(n_deg, m_deg, 1))
 
+    # n_2hop = len(set(nx.single_source_shortest_path_length(G1, n, cutoff=2).keys())) - n_deg
+    # m_2hop = len(set(nx.single_source_shortest_path_length(G2, m, cutoff=2).keys())) - m_deg
+    #
+    # feature_set.append(abs(n_2hop - m_2hop) / max(n_2hop, m_2hop, 1))
+
     # name sim coef
-    ratio = fuzz.token_set_ratio(G1.node[n]['fname'], G2.node[m]['fname'])
-    feature_set.append(ratio)
+    # ratio = fuzz.token_set_ratio(G1.node[n]['fname'], G2.node[m]['fname'])
+    # feature_set.append(ratio)
 
     return feature_set
 
@@ -179,9 +197,11 @@ def read_gs(g1_fname, g2_fname, from_raw):
         df = read_combine_df(from_raw=False, merge_how='outer')
         for node in G1.nodes():
             G1.node[node]['fname'] = df[df['uid_vk'] == node]['name_vk'].values[0]
+            G1.node[node]['uname'] = df[df['uid_vk'] == node]['uname'].values[0]
 
         for node in G2.nodes():
             G2.node[node]['fname'] = df[df['uid_inst'] == node]['name_inst'].values[0]
+            G2.node[node]['uname'] = df[df['uid_inst'] == node]['uname'].values[0]
 
         pickle.dump((G1, G2), open(os.path.join(folder_gen, 'G1_G2.pickle'), "wb"))
     print('G1 has all fname', all((G1.node[x]['fname'] for x in G1.nodes())))
@@ -189,34 +209,46 @@ def read_gs(g1_fname, g2_fname, from_raw):
     return G1, G2
 
 
-
 def gen_features(data):
     global f_set1s, f_set2s
     G1 = data['G1']
     G2 = data['G2']
     lid_rid = data['vals_l']
+    seed_counts = data['vals_r']
     thread_num = data['thread_num']
     features = []
     labels = []
 
+    if seed_counts:
+        not_matches = set(seed_counts) - set(lid_rid)
+        for i, j in tqdm(not_matches):
+            features.append(feature(G1, i, G2, j, seed_counts))
+            labels.append(0)
+
     rid_othres = np.array(list(set(G2.nodes()) - set((x[1] for x in lid_rid))))
     print('Start thread', thread_num)
+    count_key_error = 0
     for i, j in tqdm(lid_rid):
-        features.append(feature(G1, i, G2, j))
-        labels.append(1)
+        try:
+            features.append(feature(G1, i, G2, j, seed_counts))
+            labels.append(1)
+        except KeyError:
+            count_key_error += 1
         # Choose randomly
-        j_other = random.choice(rid_othres)
-        features.append(feature(G1, i, G2, j_other))
-        labels.append(0)
-        if random.random() > 0.6:
+        if not seed_counts:
             j_other = random.choice(rid_othres)
             features.append(feature(G1, i, G2, j_other))
             labels.append(0)
+            if random.random() > 0.1:
+                j_other = random.choice(rid_othres)
+                features.append(feature(G1, i, G2, j_other))
+                labels.append(0)
+    print('Count if Key Error', count_key_error)
     return (features, labels)
 
-def gen_train_data(lid_rid, G1, G2, save_to, threads = 1):
+def gen_train_data(lid_rid, G1, G2, save_to, threads = 1, seed_features=None):
     load_cache()
-    data_list = prepare_data_for_threads(lid_rid, None, None, G1, G2, threads)
+    data_list = prepare_data_for_threads(lid_rid, seed_features, None, G1, G2, threads)
     if threads > 1:
         pool = ThreadPool(threads)
 
@@ -302,6 +334,7 @@ def precision_recall(lid_rid):
             count += 1
     precision = count / len(lid_rid)
     recall = count / len(true_mapping)
+    print('True', count, 'False', len(lid_rid) - count)
     return (precision, recall)
 
 def find_sim_and_predict(data):
@@ -393,13 +426,54 @@ def filter_others_from_predicted(df_l, df_r, lid_rid):
     print(len(df_l), len(l), len(lid_rid), len(lid_rid) + len(l))
     return l, r
 
-def read_matches(matches_file_name, threshold, is_repeat):
-    folder_repeat = 'repeat' if is_repeat else 'no_repeat'
-    fname = os.path.join(folder_matches, folder_repeat, '%.3d' % threshold, matches_file_name)
+def read_matches(matches_file_name, threshold, algo_type, with_train = False):
+    if '/' in matches_file_name:
+        fname = matches_file_name
+    else:
+        if algo_type == 0:
+            folder_name = 'no_repeat'
+        elif algo_type == 1:
+            folder_name = 'repeat'
+        elif algo_type == 2:
+            folder_name = 'seed_matches'
+        elif algo_type == 3:
+            folder_name = 'repeat_steps'
+        fname = os.path.join(folder_matches, folder_name, '%.3d' % threshold, matches_file_name)
     print(fname[3:])
     matches = pickle.load(open(fname, 'rb'))
     print('matches len', len(matches))
     miter = iter(matches)
-    for i in range(5):
+    for i in range(1):
         print(next(miter))
+
+    if with_train:
+        fname = fname[:-7] + '_train_seeds.pickle'
+        if os.path.isfile(fname):
+            seeds_dict_train = pickle.load(open(fname, 'rb'))
+            return matches, seeds_dict_train
+
     return matches
+
+def assure_folder_exists(path):
+    folder = os.path.dirname(path)
+    print(os.path.abspath(folder))
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+
+def save_model(model, folder_name):
+    folder = os.path.join(folder_gen, 'models', folder_name)
+    weight_fname = os.path.join(folder, 'weights.h5')
+    assure_folder_exists(weight_fname)
+    # serialize weights to HDF5
+    model.save_weights(os.path.join(folder, weight_fname))
+    print("Saved model to disk")
+
+def load_model(folder_name, feature_amount, log_path='./logs_nn/'):
+    import deep_model as dp
+    reload(dp)
+    [model, [bm_callback, tb_callback]] = dp.get_model(feature_amount=feature_amount, log_path=log_path)
+    weight_fname = os.path.join(folder_gen, 'models', folder_name, 'weights.h5')
+    # load weights into new model
+    model.load_weights(weight_fname)
+    print("Loaded model from disk")
+    return [model, [bm_callback, tb_callback]]

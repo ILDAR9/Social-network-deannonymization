@@ -8,10 +8,12 @@ import pickle
 import os
 from fuzzywuzzy import fuzz
 import numpy as np
+from tqdm import tqdm
+from multiprocessing import Pool as ThreadPool
 
-class ExpandWhenStuck:
+class ExpandUserIdentity:
 
-    def __init__(self, lg, rg, seeds_0, name_sim_threshold = 0.61, is_repeat=False, model = None):
+    def __init__(self, lg, rg, seeds_0, name_sim_threshold = 61, is_repeat=False, model = None):
         if is_repeat:
             print("With repeated seeds algorithm is selected")
         else:
@@ -26,22 +28,37 @@ class ExpandWhenStuck:
         self.lNodeM = set()
         self.rNodeM = set()
         self.matches = set()
-        for s in seeds_0: self.__add_match(*s)
+
+        for s in seeds_0:
+            lnode, rnode = s
+            self.matches.add((lnode, rnode))
+            self.lNodeM.add(lnode)
+            self.rNodeM.add(rnode)
+
+
         self.seeds = list(seeds_0)
         self.used = set()
         # marks for every pair mark count > r
-        self.inactive_pairs = SortedSet(key = lambda x : (x[2],  -1 * self.f_deg_diff(x)))
         self.score_map = dict()
         self.bad_name = set()
+        self.train_data = {}
         if model:
             print('WITH MODEL!!!')
             self.model = model
+            self.has_model = True
             self.load_cache()
-            self.decide = self.__decide_with_model
+            self.__get_top = self.__get_top_with_model
+            self.inactive_pairs = SortedSet(key=lambda x: (x[2],
+                                self.__name_similar(x[1],x[2])/100 + self.__top_with_model(x)))
+            self.__decide_seed = self.__decide_seed_with_model
         else:
-            self.decide = self.__decide
-        self.name_sim_threshold = int(name_sim_threshold * 100)
-        print('name_sim_threshold', self.name_sim_threshold)
+            self.__get_top = self.__get_top_no_model
+            self.inactive_pairs = SortedSet(key=lambda x: (x[2], -1 * self.f_deg_diff(x)))
+            self.__decide_seed = self.__decide_seed_no_model
+            self.has_model = False
+
+        self.name_sim_threshold = name_sim_threshold
+        print('name_sim_threshold', name_sim_threshold)
 
     def load_cache(self):
         base_folder = '/home/ildar/projects/pycharm/social_network_revealing/graphmatching/'
@@ -62,7 +79,9 @@ class ExpandWhenStuck:
     def __in_matched(self, lnode, rnode):
         return lnode in self.lNodeM or rnode in self.rNodeM
 
-    def __add_match(self, lnode, rnode):
+    def __add_match(self, lnode, rnode, seed_count):
+        if not self.has_model :
+            self.train_data[(self.lg.vs[lnode]['uid'], self.rg.vs[rnode]['uid'])] = seed_count
         self.matches.add((lnode, rnode))
         self.lNodeM.add(lnode)
         self.rNodeM.add(rnode)
@@ -70,58 +89,144 @@ class ExpandWhenStuck:
     def __name_similar(self, li, ri):
         return fuzz.token_set_ratio(self.lg.vs[li]['fname'], self.rg.vs[ri]['fname'])
 
-    def __spread_mark(self, lnode, rnode):
+
+    # def __part_spread_marks(self, data):
+    #     seeds = data['seeds']
+    #     seeds_collect = {}
+    #     old_marks = {}
+    #     for seed in tqdm(seeds):
+    #         self.used.add(self.to_str(*seed))
+    #         self.__spread_mark(*seed, seeds_collect=seeds_collect, old_marks=old_marks)
+
+
+    # def __spread_marks_parallel(self):
+    #     # for all pairs[i, j] of A do
+    #     threads = 4
+    #     print('start __spread_marks')
+    #     self.seeds_collect = {}
+    #     self.old_marks = {}
+    #     data_list = []
+    #     thr_size = len(self.seeds) // threads
+    #     for i in range(threads):
+    #         s = i * thr_size
+    #         e = i * thr_size + thr_size
+    #         data = {
+    #             'seeds' : self.seeds[s:e] if (i + 1) < threads else self.seeds[s:]
+    #         }
+    #         data_list.append(data)
+    #
+    #     pool = ThreadPool(threads)
+    #     pool.map(self.__part_spread_marks, data_list)
+    #     pool.close()
+    #     pool.join()
+    #
+    #     for seed, marks_count in tqdm(self.seeds_collect.items()):
+    #         ID_str = self.to_str(*seed)
+    #         m = (seed[0], seed[1], self.old_marks[ID_str])
+    #         self.inactive_pairs.discard(m)
+    #         self.inactive_pairs.add((seed[0], seed[1], marks_count))
+    #
+    #     # A <- None
+    #     self.seeds.clear()
+    #     print("Seed are expanded")
+
+    def __spread_mark(self, lnode, rnode, seeds_collect=None, old_marks = None):
         # add one mark to all neighboring pairs of [i,j]
-        name_sim_threshold  =self.name_sim_threshold
+        if not seeds_collect:
+            seeds_collect = {}
+            old_marks = {}
+            is_from_spread_marks=False
+        else:
+            is_from_spread_marks=True
         for l_neighbor in self.lg.neighbors(lnode):
             for r_neighbor in self.rg.neighbors(rnode):
-                if self.__in_matched(l_neighbor, r_neighbor):
+                ID_str = self.__decide_seed(l_neighbor, r_neighbor)
+                if not ID_str:
                     continue
-                ID_str = self.to_str(l_neighbor, r_neighbor)
-                if ID_str in self.bad_name:
-                    continue
-                if not self.decide(l_neighbor, r_neighbor):
-                    self.bad_name.add(ID_str)
-                    continue # ToDo repair
 
-                ID_neighbor = self.to_str(l_neighbor, r_neighbor)
-                val = self.score_map.get(ID_neighbor)
+                val = self.score_map.get(ID_str)
                 if not val:
-                    self.score_map[ID_neighbor] = 1
+                    self.score_map[ID_str] = 1
                     continue
-                self.score_map[ID_neighbor] += 1
-                m = (l_neighbor, r_neighbor, val)
-                try:
-                    self.inactive_pairs.remove(m)
-                except KeyError:
-                    pass
-                self.inactive_pairs.add((m[0], m[1], val + 1))
-
+                if ID_str not in old_marks:
+                    old_marks[ID_str] = val
+                self.score_map[ID_str] += 1
+                seeds_collect[(l_neighbor, r_neighbor)] = val+1
+        if is_from_spread_marks:
+            return
+        for seed, marks_count in seeds_collect.items():
+            ID_str = self.to_str(*seed)
+            m = (seed[0], seed[1], old_marks[ID_str])
+            self.inactive_pairs.discard(m)
+            self.inactive_pairs.add((seed[0], seed[1], marks_count))
 
     def __spread_marks(self):
         # for all pairs[i, j] of A do
-        for seed in self.seeds:
+        print('start __spread_marks')
+        seeds_collect = {}
+        old_marks = {}
+        for seed in tqdm(self.seeds):
             self.used.add(self.to_str(*seed))
-            self.__spread_mark(*seed)
+            self.__spread_mark(*seed, seeds_collect = seeds_collect, old_marks = old_marks)
+
+        for seed, marks_count in tqdm(seeds_collect.items()):
+            ID_str = self.to_str(*seed)
+            m = (seed[0], seed[1], old_marks[ID_str])
+            self.inactive_pairs.discard(m)
+            self.inactive_pairs.add((seed[0], seed[1], marks_count))
+
         # A <- None
         self.seeds.clear()
         print("Seed are expanded")
 
-    def __get_top(self):
+    def __get_top_no_model(self):
         # remove from start matched pairs
         while self.inactive_pairs:
             s = self.inactive_pairs.pop()
             if not self.__in_matched(s[0], s[1]):
-                # self.inactive_pairs.add(s)
+                return s
+            else:
+                self.train_data[(self.lg.vs[s[0]]['uid'], self.rg.vs[s[1]]['uid'])] = s[2]
+        return None
+
+    def __get_top_with_model(self):
+        # remove from start matched pairs
+        while self.inactive_pairs:
+            s = self.inactive_pairs.pop()
+            if not self.__in_matched(s[0], s[1]):
                 return s
         return None
 
-    def __decide(self, l_neighbor,  r_neighbor):
-        return self.__name_similar(l_neighbor, r_neighbor) >= self.name_sim_threshold
+    def __decide_seed_no_model(self, lnode, rnode):
+        # i,j not in V_1,V_2(M) and [i,j] not in Z
+        if self.__in_matched(lnode, rnode):
+            return False
+        ID_str = self.to_str(lnode, rnode)
+        if ID_str in self.used or ID_str in self.bad_name:
+            return False
+        if self.__name_similar(lnode, rnode) < self.name_sim_threshold:
+            self.bad_name.add(self.to_str(lnode, rnode))
+            return False
+        return ID_str
 
-    def __decide_with_model(self, l_neighbor,  r_neighbor):
-        lv = self.lg.vs[l_neighbor]
-        rv = self.rg.vs[r_neighbor]
+    def __decide_seed_with_model(self, lnode, rnode):
+        # i,j not in V_1,V_2(M) and [i,j] not in Z
+        if self.__in_matched(lnode, rnode):
+            return False
+        ID_str = self.to_str(lnode, rnode)
+        if ID_str in self.used:
+            return False
+        return ID_str
+
+    def degs(self, node):
+        s = []
+        for v in node.neighbors():
+            s.append(v.degree())
+        return s
+
+    def __top_with_model(self, s):
+        lv = self.lg.vs[s[0]]
+        rv = self.rg.vs[s[1]]
 
         feature_l = self.f_set1s[lv['uid']]
         feature_r = self.f_set2s[rv['uid']]
@@ -130,26 +235,22 @@ class ExpandWhenStuck:
         n_deg = lv.degree()
         m_deg = rv.degree()
         feature_set.append(abs(n_deg - m_deg) / max(n_deg, m_deg, 1))
-        ratio = self.__name_similar(l_neighbor, r_neighbor)
-        feature_set.append(ratio)
+
+        # ratio = self.__name_similar(s[0], s[1])
+        # feature_set.append(ratio)
         x = np.array(feature_set).reshape((1, -1))
-        return ratio >= self.name_sim_threshold and self.model.predict(x) == 1
+        return self.model.predict(x) == 1  # ratio >= self.name_sim_threshold and
 
 
     def __extend_seeds_by_matches(self):
         # A <- all neighbors of M [i,j] not in Z, i,j not in V_1,V_2(M)
-        for m in self.matches:
+        print('__extend_seeds_by_matches')
+        for m in tqdm(self.matches):
             lnode, rnode = m
             # all neighbors of M
             for l_neighbor in self.lg.neighbors(lnode):
                 for r_neighbor in self.rg.neighbors(rnode):
-                    # i,j not in V_1,V_2(M) and [i,j] not in Z
-                    ID_str = self.to_str(l_neighbor, r_neighbor)
-                    if self.__in_matched(l_neighbor, r_neighbor) or ID_str in self.used or ID_str in self.bad_name:
-                        continue
-
-                    if not self.decide(l_neighbor,  r_neighbor):
-                        self.bad_name.add(ID_str)
+                    if not self.__decide_seed(l_neighbor, r_neighbor):
                         continue
                     self.seeds.append((l_neighbor,r_neighbor))
         print("Extended seed size: ", len(self.seeds))
@@ -163,7 +264,7 @@ class ExpandWhenStuck:
         print("Garbage collector:")
         print("\talgorithm: time elapsed: %s" % (time.time() - self.s_time))
         print("\tSize score map: %d" % len(self.score_map))
-        for s in self.score_map:
+        for s in tqdm(self.score_map):
             ln, rn = self.untokenize(s)
             if self.__in_matched(ln, rn):
                 del self.score_map[s]
@@ -197,7 +298,8 @@ class ExpandWhenStuck:
 
         iter_num = 0
         show_counter = 0
-        show_bound = 150
+        show_bound = 50
+        show_bound_match = 10
         used_used = set()
         round = 1
         # while |A| > 0 do
@@ -208,6 +310,7 @@ class ExpandWhenStuck:
                 print("Iter num: %d\tseed size = %d" % (iter_num, len(self.seeds)))
                 # for all pairs[i, j] of A do
                 self.__spread_marks()
+                print('Done')
                 # while there exists an unmatched pair with score at least r+1
                 while self.inactive_pairs:
                     show_counter += 1
@@ -215,13 +318,13 @@ class ExpandWhenStuck:
                         print("In progress... (%d)" % len(self.inactive_pairs))
                     # remove from start matched pairs
                     s = self.__get_top()
-                    if (show_counter % show_bound == 0):
+                    if not s: break
+                    elif (show_counter % show_bound == 0):
                         print("[%d] select the unmatched pair [%d,%d]" % (show_counter, s[0], s[1]))
                         print("score map size = %d" % len(self.score_map))
-                    if not s: break
-                    lnode, rnode = s[:2]
+                    lnode, rnode, seed_count = s
                     # add [i,j] to M
-                    self.__add_match(lnode, rnode)
+                    self.__add_match(lnode, rnode, seed_count)
 
                     ID_not_active = self.to_str(lnode, rnode)
                     # if [i,j] not in Z
@@ -230,8 +333,8 @@ class ExpandWhenStuck:
                         self.used.add(ID_not_active)
                         # add one marks to all of its neighbouring pairs
                         self.__spread_mark(lnode,rnode)
-                    self.__garbage_collect()
-                    if len(self.matches) % 100 == 0:
+                    # self.__garbage_collect()
+                    if len(self.matches) % show_bound_match == 0:
                         print("Correct = %d, Wrong = %d" % self.__inter_result())
 
 
@@ -263,7 +366,7 @@ class ExpandWhenStuck:
             repeat_name = 'seed_matches'
         else:
             repeat_name = 'repeat' if self.with_repeat else 'no_repeat'
-        fname = '%.3d/matches_s_%.2d_th_%.3d_t_%s.pickle' % (self.name_sim_threshold, self.seed_0_count, self.name_sim_threshold, time.strftime("%m-%d_%H:%M"))
+        fname = '%.3d/matches_s_%.2d_th_%.3d_t_%s.pickle' % (self.name_sim_threshold, self.seed_0_count, self.name_sim_threshold, time.strftime("%m-%d_%H:%M:%S"))
         fname = os.path.join('matches', repeat_name, fname)
         self.assure_folder_exists(fname)
 
@@ -274,6 +377,11 @@ class ExpandWhenStuck:
             lid_rid.append((lid,  rid))
         assert len(lid_rid) == len(self.matches)
         pickle.dump(lid_rid, open(fname, 'wb'))
+        self.__save_train(fname)
+        return fname
+
+    def __save_train(self, f_matches):
+        pickle.dump(self.train_data, open(f_matches[:-7] + '_train_seeds.pickle', 'wb'))
 
     def check_result(self):
         correct, wrong = self.__inter_result()

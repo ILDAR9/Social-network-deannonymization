@@ -6,10 +6,10 @@ import sys, time, re, os
 from random import randint
 import cyrtranslit
 import pickle
+import gc
 sys.path.append('./scripts')
 
 import ml_utils as utils
-
 
 
 f_prefix = 'data/'
@@ -67,11 +67,11 @@ def enrich_insta_graph(g):
         v['uid'] = int(uid)
         v['fname'] = cyrtranslit.to_latin(fname, 'ru').replace("'", '')
 
-def gen_seeds(a_c, lg, rg):
+def gen_seeds(a_c, lg, rg, fname = None):
     s= time.time()
-    if a_c == 0: ### FILE NAME TO LOAD INITIAL SEEDS FROM MATCHES
-        matches_file_name = 'matches_s_01_th_091_t_10-12_13:19.pickle'
-        lid_rid = utils.read_matches(matches_file_name, threshold = 91, is_repeat=True)
+    if a_c == 0 or fname: ### FILE NAME TO LOAD INITIAL SEEDS FROM MATCHES
+        matches_file_name = 'matches_s_03_th_081_t_10-20_00:10:59.pickle' if not fname else fname
+        lid_rid = utils.read_matches(matches_file_name, threshold = 81, algo_type=0)
         res = []
         ldict, rdict = {}, {}
         for lv in lg.vs:
@@ -97,9 +97,11 @@ def gen_seeds(a_c, lg, rg):
     return res
 
 def load_model():
-    return pickle.load(open(os.path.join(utils.folder_gen, 'forest.pickle'), 'rb'))
+    model = utils.load_model('matches_f85_th81', feature_amount=85)[0]
+    return model
+    # return pickle.load(open(os.path.join(utils.folder_gen, 'forest.pickle'), 'rb')) # forest
 
-def proceed(alg_GM, a_c, name_sim_threshold, is_repeat, is_model):
+def proceed(alg_GM, a_c, name_sim_threshold, is_repeat, is_model, matches_fname = None):
     if a_c < 0:
         raise Exception('a_c is less than 0.', a_c)
 
@@ -109,7 +111,7 @@ def proceed(alg_GM, a_c, name_sim_threshold, is_repeat, is_model):
     vk_g = read_edges(f_prefix + 'vk_lid_rid.csv')
     enrich_vk_graph(vk_g)
 
-    seeds_0 = gen_seeds(a_c, vk_g, inst_g)
+    seeds_0 = gen_seeds(a_c, vk_g, inst_g, fname = matches_fname)
 
     print('Seeds count', len(seeds_0))
     s_time = time.time()
@@ -122,20 +124,44 @@ def proceed(alg_GM, a_c, name_sim_threshold, is_repeat, is_model):
     print("Execution time:", gm.time_elapsed)
     return gm
 
+
+
 def main():
-    from expand_UID import ExpandWhenStuck
-    a_c = int(sys.argv[1])
-    name_thres = float(sys.argv[2])
-    is_repeat = bool(int(sys.argv[3]))
-    is_model = bool(int(sys.argv[4]))
+    """
+    argv[1] - algo type : 0-old version. 1-repeat algo with reducing threshold. 2-collect train data with seeds
+        if algtype == 1 then name_threshold_step is a delta step
+    argv[2] - a_c
+    argv[3] - name_threshold
+    argv[4] - is_repeat
+    argv[5] - is_model
+    """
+    from expand_UIL2 import ExpandUserIdentity
+    alg_type = int(sys.argv[1])
+    a_c = int(sys.argv[2])
+    name_thres = int(sys.argv[3])
+    is_repeat = bool(int(sys.argv[4]))
+    is_model = bool(int(sys.argv[5]))
     print('is_repeat', is_repeat)
     print('is_model', is_model)
 
-    gm = proceed(ExpandWhenStuck, a_c, name_sim_threshold = name_thres, is_repeat = is_repeat, is_model = is_model)
+    threshold_list = [name_thres]
+    if alg_type == 1:
+        threshold_list = list(range(99, 58, -1 * name_thres))
 
-    gm.check_result()
-    gm.save_result()
+    last_matches_fname = None
+    for i,threshold in enumerate(threshold_list,1):
+        print("####################################")
+        print("############STEP %.2d (%.2d)############" % (i, threshold))
+        print("####################################")
+        gm = proceed(ExpandUserIdentity, a_c, name_sim_threshold = threshold,
+                     is_repeat = is_repeat, is_model = is_model, matches_fname=last_matches_fname)
+        gm.check_result()
+        last_matches_fname = gm.save_result()
+        a_c = 0
+        is_repeat = False
+        gc.collect()
 
+# ExpandWhenStuck
 def main2():
     def enrich(g):
         for v in g.vs:
