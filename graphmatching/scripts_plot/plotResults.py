@@ -7,7 +7,7 @@ IN_FOLDER = "gm"
 
 DATA_FOLDER_NAME = os.path.join('data_plot', IN_FOLDER)
 OUT_FOLDER_NAME = 'out'
-PLOT_TITLE = 'User Identity Linkage (VK, Instagram)'
+PLOT_TITLE = 'Linking Users between Social Networks (VK, Instagram)'
 FLG_SAVE_IMG = True
 MAX_X = 200
 MAX_Y = 25000
@@ -33,12 +33,16 @@ def set_up():
 def plot_data():
     pref_gm1 = 'gm1_'
     pref_gm2 = 'gm2_'
-    d = {pref_gm1 + 'label': 'ExpandUserLinkage on topology',
+    pref_gm3 = 'gm3_'
+    d = {pref_gm1 + 'label': 'ExpandWhenStuck on topology',
          pref_gm1 + 'color': 'red',
          pref_gm1 + 'marker': 'o',
-         pref_gm2 + 'label': 'ExpandUserLinkage on topology and node name',
+         pref_gm2 + 'label': 'ExpandUIL',
          pref_gm2 + 'color': 'blue',
          pref_gm2 + 'marker': 'x',
+         pref_gm3 + 'label': '3PSL on topology',
+         pref_gm3 + 'color': 'orange',
+         pref_gm3 + 'marker': 'D',
          'xlabel': 'Initial seeds'}
 
     def set_up_plot():
@@ -52,7 +56,7 @@ def plot_data():
     def plot_of():
         pl.xlabel(d['xlabel'])
         pl.ylabel(d['ylabel'])
-        for prefix in (pref_gm1, pref_gm2):
+        for prefix in (pref_gm2, pref_gm3, pref_gm1):
             data_file = os.path.join(DATA_FOLDER_NAME, d[prefix + 'fname'])
             pl.plot(*zip(*read_data(data_file)), markersize=10, marker=d[prefix + 'marker'], label=d[prefix + 'label'],
                        color=d[prefix + 'color'])
@@ -103,8 +107,9 @@ def plot_data():
         d.update({
             pref_gm1 + 'fname': pref_gm1+'f1-score.txt',
             pref_gm2 + 'fname': pref_gm2+'f1-score.txt',
+            pref_gm3 + 'fname': pref_gm3 + 'f1-score.txt',
             'ylabel': 'F1-score',
-            'img_name': 'F1-score.png',
+            'img_name': 'F1-score.pdf',
             'ymax': 1})
         plot_of()
 

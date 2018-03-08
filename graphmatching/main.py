@@ -12,7 +12,7 @@ sys.path.append('./scripts')
 import ml_utils as utils
 
 
-f_prefix = 'data/'
+profile = utils.load_profile(fname='profile_random_t_90_s_80')
 
 
 def read_edges(f_name):
@@ -29,7 +29,7 @@ def enrich_vk_graph(g):
     g.vs['fname'] = ''
     g.vs['uid'] = None
 
-    with open(f_prefix + 'vk_personal2.csv', 'r') as f:
+    with open(os.path.join(utils.folder_data, 'vk_personal2.csv'), 'r') as f:
         for line in f:
             try:
                 uid, uname, name1, name2 = pat.match(line).groups()
@@ -54,7 +54,7 @@ def enrich_insta_graph(g):
     g.vs['fname'] = ''
     g.vs['uid'] = None
 
-    with open(f_prefix + 'inst_personal.csv', 'r') as f:
+    with open(os.path.join(utils.folder_data, 'inst_personal.csv'), 'r') as f:
         for line in f:
             uid, uname, fname = pat.match(line).groups()
             fname = re.sub(pat_word, '', fname).strip().lower()
@@ -70,14 +70,14 @@ def enrich_insta_graph(g):
 def gen_seeds(a_c, lg, rg, fname = None):
     s= time.time()
     if a_c == 0 or fname: ### FILE NAME TO LOAD INITIAL SEEDS FROM MATCHES
-        matches_file_name = 'matches_s_03_th_081_t_10-20_00:10:59.pickle' if not fname else fname
-        lid_rid = utils.read_matches(matches_file_name, threshold = 81, algo_type=0)
+        matches_file_name = profile['matches'] if not fname else fname
+        lid_rid = utils.read_matches(matches_file_name, threshold = profile['th'], algo_type=profile['alg_type'])
         res = []
         ldict, rdict = {}, {}
         for lv in lg.vs:
-            ldict[lv['uid']] = lv.index
+            ldict[int(lv['uid'])] = lv.index
         for rv in rg.vs:
-            rdict[rv['uid']] = rv.index
+            rdict[int(rv['uid'])] = rv.index
 
         for lid, rid in lid_rid:
             ind_l = ldict[lid]
@@ -97,19 +97,28 @@ def gen_seeds(a_c, lg, rg, fname = None):
     return res
 
 def load_model():
-    model = utils.load_model('matches_f85_th81', feature_amount=85)[0]
+    model = utils.load_model(profile['model'], feature_amount=85)[0]
     return model
     # return pickle.load(open(os.path.join(utils.folder_gen, 'forest.pickle'), 'rb')) # forest
+
+def load_rand_graph(is_random = False):
+    if is_random:
+        vk_g, inst_g = pickle.load(open(os.path.join(utils.folder_data, 'random_experiment', profile['graph']), "rb"))
+    else:
+        vk_g = read_edges(os.path.join(utils.folder_data, 'vk_lid_rid.csv'))
+        enrich_vk_graph(vk_g)
+
+        inst_g = read_edges(os.path.join(utils.folder_data, 'inst_lid_rid.csv'))
+        enrich_insta_graph(inst_g)
+    print('vk_g', vk_g.vcount())
+    print('inst_g', inst_g.vcount())
+    return vk_g, inst_g
 
 def proceed(alg_GM, a_c, name_sim_threshold, is_repeat, is_model, matches_fname = None):
     if a_c < 0:
         raise Exception('a_c is less than 0.', a_c)
 
-    inst_g = read_edges(f_prefix + 'inst_lid_rid.csv')
-    enrich_insta_graph(inst_g)
-
-    vk_g = read_edges(f_prefix + 'vk_lid_rid.csv')
-    enrich_vk_graph(vk_g)
+    vk_g, inst_g = load_rand_graph(is_random=True)
 
     seeds_0 = gen_seeds(a_c, vk_g, inst_g, fname = matches_fname)
 
@@ -118,7 +127,8 @@ def proceed(alg_GM, a_c, name_sim_threshold, is_repeat, is_model, matches_fname 
 
     model = load_model() if is_model else None
 
-    gm = alg_GM(vk_g, inst_g, seeds_0, name_sim_threshold = name_sim_threshold, is_repeat = is_repeat, model = model)
+    gm = alg_GM(vk_g, inst_g, seeds_0, name_sim_threshold = name_sim_threshold,
+        is_repeat = is_repeat, model = model, cache_files = (profile['cache_l'], profile['cache_r']))
     print("Read Graphs time:", time.time() - s_time)
     gm.execute()
     print("Execution time:", gm.time_elapsed)
@@ -169,8 +179,8 @@ def main2():
 
     a_c = int(sys.argv[1])
     from expand_when_stuck import ExpandWhenStuck
-    lg = read_edges(f_prefix + 'rg_erdos_renyi_100.csv')
-    rg = read_edges(f_prefix + 'rg_erdos_renyi_100.csv')
+    lg = read_edges(os.path.join(utils.folder_data, 'rg_erdos_renyi_100.csv'))
+    rg = read_edges(os.path.join(utils.folder_data, 'rg_erdos_renyi_100.csv'))
     enrich(lg)
     enrich(rg)
 

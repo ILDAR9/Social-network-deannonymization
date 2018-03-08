@@ -13,7 +13,8 @@ from multiprocessing import Pool as ThreadPool
 
 class ExpandUserIdentity:
 
-    def __init__(self, lg, rg, seeds_0, name_sim_threshold = 61, is_repeat=False, model = None):
+    def __init__(self, lg, rg, seeds_0, name_sim_threshold = 61,
+                 is_repeat=False, model = None, cache_files = None):
         if is_repeat:
             print("With repeated seeds algorithm is selected")
         else:
@@ -41,15 +42,14 @@ class ExpandUserIdentity:
         # marks for every pair mark count > r
         self.score_map = dict()
         self.bad_name = set()
-        self.train_data = {}
         if model:
             print('WITH MODEL!!!')
             self.model = model
             self.has_model = True
-            self.load_cache()
+            self.load_cache(cache_files)
             self.__get_top = self.__get_top_with_model
             self.inactive_pairs = SortedSet(key=lambda x: (x[2],
-                                self.__name_similar(x[1],x[2])/100 + self.__top_with_model(x)))
+                                self.__name_similar(x[0],x[1])/100 + self.__top_with_model(x)))
             self.__decide_seed = self.__decide_seed_with_model
         else:
             self.__get_top = self.__get_top_no_model
@@ -59,13 +59,18 @@ class ExpandUserIdentity:
 
         self.name_sim_threshold = name_sim_threshold
         print('name_sim_threshold', name_sim_threshold)
+        n_common = 0
+        s2 = set([v['uid'] for v in lg.vs])
+        for v in rg.vs:
+            n_common += int(v['uid'] in s2)
+        self.n_common = n_common
 
-    def load_cache(self):
+    def load_cache(self, cache_files):
         base_folder = '/home/ildar/projects/pycharm/social_network_revealing/graphmatching/'
         folder_data = os.path.join(base_folder, 'data')
         folder_gen = os.path.join(folder_data, 'generated')
-        self.f_set1s = dict(pickle.load(open(os.path.join(folder_gen, 'features_G1.pickle'), "rb")))
-        self.f_set2s = dict(pickle.load(open(os.path.join(folder_gen, 'features_G2.pickle'), "rb")))
+        self.f_set1s = dict(pickle.load(open(os.path.join(folder_gen, cache_files[0]), "rb")))
+        self.f_set2s = dict(pickle.load(open(os.path.join(folder_gen, cache_files[1]), "rb")))
         print('Cache loaded', len(self.f_set1s), len(self.f_set2s))
 
     def to_str(self, ln ,rn): return '%d|%d' % (ln, rn)
@@ -80,8 +85,6 @@ class ExpandUserIdentity:
         return lnode in self.lNodeM or rnode in self.rNodeM
 
     def __add_match(self, lnode, rnode, seed_count):
-        if not self.has_model :
-            self.train_data[(self.lg.vs[lnode]['uid'], self.rg.vs[rnode]['uid'])] = seed_count
         self.matches.add((lnode, rnode))
         self.lNodeM.add(lnode)
         self.rNodeM.add(rnode)
@@ -129,10 +132,9 @@ class ExpandUserIdentity:
     #     # A <- None
     #     self.seeds.clear()
     #     print("Seed are expanded")
-
     def __spread_mark(self, lnode, rnode, seeds_collect=None, old_marks = None):
         # add one mark to all neighboring pairs of [i,j]
-        if not seeds_collect:
+        if seeds_collect == None:
             seeds_collect = {}
             old_marks = {}
             is_from_spread_marks=False
@@ -185,8 +187,6 @@ class ExpandUserIdentity:
             s = self.inactive_pairs.pop()
             if not self.__in_matched(s[0], s[1]):
                 return s
-            else:
-                self.train_data[(self.lg.vs[s[0]]['uid'], self.rg.vs[s[1]]['uid'])] = s[2]
         return None
 
     def __get_top_with_model(self):
@@ -299,7 +299,7 @@ class ExpandUserIdentity:
         iter_num = 0
         show_counter = 0
         show_bound = 50
-        show_bound_match = 10
+        show_bound_match = 50
         used_used = set()
         round = 1
         # while |A| > 0 do
@@ -377,17 +377,14 @@ class ExpandUserIdentity:
             lid_rid.append((lid,  rid))
         assert len(lid_rid) == len(self.matches)
         pickle.dump(lid_rid, open(fname, 'wb'))
-        self.__save_train(fname)
         return fname
 
-    def __save_train(self, f_matches):
-        pickle.dump(self.train_data, open(f_matches[:-7] + '_train_seeds.pickle', 'wb'))
 
     def check_result(self):
         correct, wrong = self.__inter_result()
         msize = len(self.matches)
 
-        recall = float(correct) / min(self.lg.vcount(), self.lg.vcount())
+        recall = float(correct) / self.n_common
         precision = float(correct) / msize
         f1_score = 2 * (precision*recall / (precision + recall))
 

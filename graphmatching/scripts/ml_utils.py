@@ -16,6 +16,7 @@ base_folder = '/home/ildar/projects/pycharm/social_network_revealing/graphmatchi
 folder_data = os.path.join(base_folder, 'data')
 folder_gen = os.path.join(folder_data, 'generated')
 folder_matches = os.path.join(base_folder, 'matches')
+fname_true_mapping = 'true_mapping.csv'
 
 def clean_lineinst(line):
     pat = re.compile("(\d+),(.*),(.*)")
@@ -97,8 +98,9 @@ def generate_overlap(df, sim_f):
     return ls
 
 def generate_true_mapping(from_raw=False):
+    fname = fname_true_mapping
     df = read_combine_df(from_raw=from_raw)
-    fname = 'true_mapping.csv'
+
     with open(os.path.join(folder_gen, fname), 'w') as rw:
         rw.write('uid_vk,uid_inst\n')
         for tup in map(lambda x: (x[0], x[1]), df[['uid_vk', 'uid_inst']].values):
@@ -106,7 +108,7 @@ def generate_true_mapping(from_raw=False):
     return fname
 
 def read_true_mapping(as_set = False):
-    true_mapping = pd.read_csv(os.path.join(folder_gen, 'true_mapping.csv'))
+    true_mapping = pd.read_csv(os.path.join(folder_gen, fname_true_mapping))
     if as_set:
         return set((x[0], x[1]) for x in true_mapping.values)
     else:
@@ -214,41 +216,34 @@ def gen_features(data):
     G1 = data['G1']
     G2 = data['G2']
     lid_rid = data['vals_l']
-    seed_counts = data['vals_r']
     thread_num = data['thread_num']
     features = []
     labels = []
 
-    if seed_counts:
-        not_matches = set(seed_counts) - set(lid_rid)
-        for i, j in tqdm(not_matches):
-            features.append(feature(G1, i, G2, j, seed_counts))
-            labels.append(0)
 
     rid_othres = np.array(list(set(G2.nodes()) - set((x[1] for x in lid_rid))))
     print('Start thread', thread_num)
     count_key_error = 0
     for i, j in tqdm(lid_rid):
         try:
-            features.append(feature(G1, i, G2, j, seed_counts))
+            features.append(feature(G1, i, G2, j))
             labels.append(1)
         except KeyError:
             count_key_error += 1
         # Choose randomly
-        if not seed_counts:
+        j_other = random.choice(rid_othres)
+        features.append(feature(G1, i, G2, j_other))
+        labels.append(0)
+        if random.random() > 0.1:
             j_other = random.choice(rid_othres)
             features.append(feature(G1, i, G2, j_other))
             labels.append(0)
-            if random.random() > 0.1:
-                j_other = random.choice(rid_othres)
-                features.append(feature(G1, i, G2, j_other))
-                labels.append(0)
     print('Count if Key Error', count_key_error)
     return (features, labels)
 
-def gen_train_data(lid_rid, G1, G2, save_to, threads = 1, seed_features=None):
-    load_cache()
-    data_list = prepare_data_for_threads(lid_rid, seed_features, None, G1, G2, threads)
+def gen_train_data(lid_rid, G1, G2, save_to, threads = 1):
+    # load_cache()
+    data_list = prepare_data_for_threads(lid_rid, None, None, G1 = G1, G2 = G2, threads = threads)
     if threads > 1:
         pool = ThreadPool(threads)
 
@@ -262,7 +257,7 @@ def gen_train_data(lid_rid, G1, G2, save_to, threads = 1, seed_features=None):
         features, labels = gen_features(data_list[0])
 
     pickle.dump((features, labels), open( os.path.join(folder_gen, save_to + '.pickle'), "wb" ))
-    clear_cache()
+    # clear_cache()
 
 def load_cache():
     global f_set1s, f_set2s
@@ -326,16 +321,19 @@ def filter_same(results):
     pickle.dump(filtered_res, open(os.path.join(folder_gen, 'test2_predicted_filtered.pickle'), "wb"))
     return filtered_res
 
-def precision_recall(lid_rid):
-    true_mapping = read_true_mapping(as_set=True)
+def precision_recall(lid_rid, count_v=0):
+    is_synthetic_graph = count_v > 0
+    if not is_synthetic_graph:
+        true_mapping = read_true_mapping(as_set=True)
     count = 0
+    check = (lambda x: x in true_mapping) if not is_synthetic_graph else (lambda x: x[0] == x[1])
     for res in lid_rid:
-        if res in true_mapping:
+        if check(res):
             count += 1
     precision = count / len(lid_rid)
-    recall = count / len(true_mapping)
+    recall = count / (len(true_mapping) if not is_synthetic_graph else count_v)
     print('True', count, 'False', len(lid_rid) - count)
-    return (precision, recall)
+    return (precision, recall, 2 * precision * recall / (precision + recall))
 
 def find_sim_and_predict(data):
     df_vals_l = data['vals_l']
@@ -477,3 +475,35 @@ def load_model(folder_name, feature_amount, log_path='./logs_nn/'):
     model.load_weights(weight_fname)
     print("Loaded model from disk")
     return [model, [bm_callback, tb_callback]]
+
+def generate_struct_cach(Gx, save_to):
+    features_g1 = []
+    for n in tqdm(Gx.nodes()):
+        feature = deg_dist(Gx, n, bins=21, size=50)
+        entry = (n, feature)
+        features_g1.append(entry)
+    pickle.dump(features_g1, open(os.path.join(folder_gen, save_to), "wb"))
+
+def prepare_profile(fname, graph, matches, th, alg_type, cache_l, cache_r, model, train):
+    d = {
+        'graph' : graph,
+        'matches' : matches,
+        'alg_type' : alg_type,
+        'th' : th,
+        'cache_l' : cache_l,
+        'cache_r' : cache_r,
+        'model' : model,
+        'train' : train
+    }
+    pickle.dump(d, open(os.path.join(folder_gen, 'profiles', fname), 'wb'))
+    return d
+
+def load_profile(fname):
+    d = pickle.load(open(os.path.join(folder_gen, 'profiles', fname), 'rb'))
+    return d
+
+def igraph_to_nx(ig):
+    G = nx.from_edgelist([(int(names[x[0]]), int(names[x[1]]))
+                      for names in [ig.vs['name']] # simply a let
+                      for x in ig.get_edgelist()]) # nx.Graph()
+    return G

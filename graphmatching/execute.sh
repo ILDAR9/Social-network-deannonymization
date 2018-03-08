@@ -1,6 +1,6 @@
 #!/bin/bash
 source activate ds
-s_threshold_or_step=99
+s_threshold_or_step=80
 is_repeat=0
 is_model=1
 algo_type=0
@@ -22,12 +22,12 @@ then
 alg=step_${s_threshold_or_step}_$alg
 fi
 
-today=`date +%m-%d.%H:%M`
 echo $s
 logs=./logs/alg_type${algo_type}_${alg}/${s_threshold_or_step}
 mkdir -p $logs
 for var in 0
 do
+	today=`date +%m-%d.%H:%M:%S`
 	fname=$logs/seed_$(printf "%02d" $var)_thr_$(printf "%.2f" $s)_${today}.log
 	echo $fname;
 	python -u main.py $algo_type $var ${s_threshold_or_step} ${is_repeat} ${is_model} 2>&1 | tee ${fname};
